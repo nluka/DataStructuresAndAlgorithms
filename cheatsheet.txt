@@ -1,0 +1,6 @@
+1. Verify what assumptions can be made, check inputs
+2. Determine main goal: time or space
+3. Talk about brute force approach, explain why it is not the best way
+4. Plan out the solution
+5. Code the solution
+6. Test the solution, find where the code can break
