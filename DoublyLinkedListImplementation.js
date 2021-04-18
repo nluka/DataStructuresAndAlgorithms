@@ -1,22 +1,24 @@
 class Node {
-  constructor(value, next) {
+  constructor(value, next, previous) {
     this.value = value;
     this.next = next;
+    this.previous = previous;
   }
 }
 
-class SinglyLinkedList {
+class DoublyLinkedList {
   constructor(firstValue) {
     this.head = {
       value: firstValue,
-      next: null
+      next: null,
+      previous: null
     };
     this.tail = this.head;
     this.length = 1;
   }
 
   append(value) {
-    const newNode = new Node(value, null);
+    const newNode = new Node(value, null, this.tail);
     this.tail.next = newNode;
     this.tail = newNode;
     this.length++;
@@ -24,14 +26,10 @@ class SinglyLinkedList {
   }
 
   prepend(value) {
-    const newNode = new Node(value, this.head);
+    const newNode = new Node(value, this.head, null);
     this.head = newNode;
     this.length++;
     return this;
-  }
-
-  getValueAtIndex(index) {
-    return this.getNodeAtIndex(index).value;
   }
 
   getValues() {
@@ -82,17 +80,29 @@ class SinglyLinkedList {
   }
 
   getNodeAtIndex(index) {
-    let currentNode = this.head;
-    for (let currentIndex = 0; currentIndex < index; currentIndex++) {
+    let currentNode;
+    const middleIndex = (this.length - 1) / 2;
+
+    if (index <= middleIndex) {
+      currentNode = this.head;
+      for (let currentIndex = 0; currentIndex < index; currentIndex++) {
+        currentNode = currentNode.next;
+      }
+      return currentNode;
+    }
+
+    const lastIndex = this.length - 1;
+    currentNode = this.head;
+    for (let currentIndex = lastIndex; currentIndex > index; currentIndex--) {
       currentNode = currentNode.next;
     }
     return currentNode;
   }
 }
 
-const singlyLinkedList = new SinglyLinkedList(5);
-singlyLinkedList.prepend(1);
-singlyLinkedList.append(10);
-// singlyLinkedList.insert(4, 100);
-singlyLinkedList.remove(1);
-console.log(singlyLinkedList.getValues());
+const doublyLinkedList = new DoublyLinkedList(5);
+doublyLinkedList.prepend(1);
+doublyLinkedList.append(10);
+// doublyLinkedList.insert(4, 100);
+doublyLinkedList.remove(1);
+console.log(doublyLinkedList.getValues());
