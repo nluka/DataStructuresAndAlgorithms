@@ -8,7 +8,7 @@ test('HashTable.data.length should be the same length as the size passed into co
   for (let i = 0; i < 5; i++) {
     const SIZE = i * 10;
     const hashTable = new HashTable(SIZE);
-    expect(hashTable.data.length).toEqual(SIZE);
+    expect(hashTable.data.length).toBe(SIZE);
   }
 });
 
@@ -16,7 +16,7 @@ test('HashTable.data elements should be undefined when instantiated', () => {
   const SIZE = 10;
   const hashTable = new HashTable(SIZE);
   for (let i = 0; i < SIZE; i++) {
-    expect(hashTable.data[i]).toEqual(undefined);
+    expect(hashTable.data[i]).toBe(undefined);
   }
 });
 
@@ -46,5 +46,5 @@ test('HashTable.get(key) should return the set value', () => {
   const KEY = 'apples';
   const VALUE = 15;
   hashTable.set(KEY, VALUE);
-  expect(hashTable.get(KEY)).toEqual(VALUE);
+  expect(hashTable.get(KEY)).toBe(VALUE);
 });
