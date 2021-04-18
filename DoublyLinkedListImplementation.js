@@ -92,7 +92,7 @@ class DoublyLinkedList {
     }
 
     const lastIndex = this.length - 1;
-    currentNode = this.head;
+    currentNode = this.tail;
     for (let currentIndex = lastIndex; currentIndex > index; currentIndex--) {
       currentNode = currentNode.next;
     }
@@ -101,6 +101,7 @@ class DoublyLinkedList {
 }
 
 const doublyLinkedList = new DoublyLinkedList(5);
+doublyLinkedList.prepend(2);
 doublyLinkedList.prepend(1);
 doublyLinkedList.append(10);
 // doublyLinkedList.insert(4, 100);
