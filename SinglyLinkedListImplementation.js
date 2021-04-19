@@ -91,10 +91,3 @@ class SinglyLinkedList {
 }
 
 module.exports.SinglyLinkedList = SinglyLinkedList;
-
-const singlyLinkedList = new SinglyLinkedList(5);
-singlyLinkedList.prepend(1);
-singlyLinkedList.append(10);
-// singlyLinkedList.insert(4, 100);
-singlyLinkedList.remove(1);
-console.log(singlyLinkedList.getValues());
