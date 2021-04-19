@@ -4,7 +4,7 @@ const { firstRecurringArrayElement } = require('./FirstRecurringArrayElement');
 test('firstRecurringArrayElement should return first recurring array element', () => {
   expect(firstRecurringArrayElement([2, 5, 1, 2, 3, 5, 1, 2, 4])).toBe(2);
   expect(firstRecurringArrayElement([2, 1, 1, 2, 3, 5, 1, 2, 4])).toBe(1);
-  expect(firstRecurringArrayElement([2, 5, 5, 2, 3, 5, 1, 2, 4])).toBe(5);
+  expect(firstRecurringArrayElement([2, 5.5, 5.5, 2, 3, 5, 1, 2, 4])).toBeCloseTo(5.5, 2);
   expect(firstRecurringArrayElement(['one', 'two', 'one'])).toBe('one');
   expect(firstRecurringArrayElement([null, 1, null])).toBe(null);
   expect(firstRecurringArrayElement([undefined, 1, undefined])).toBe(undefined);

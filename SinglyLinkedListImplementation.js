@@ -90,6 +90,8 @@ class SinglyLinkedList {
   }
 }
 
+module.exports.SinglyLinkedList = SinglyLinkedList;
+
 const singlyLinkedList = new SinglyLinkedList(5);
 singlyLinkedList.prepend(1);
 singlyLinkedList.append(10);

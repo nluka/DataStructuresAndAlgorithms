@@ -17,8 +17,8 @@ function firstRecurringArrayElement(array) {
   }
 
   // This solution optimizes for time,
-  // if memory was more important a nested loop approach would be better,
-  // time complexity = O(n), space complexity = O(n)
+  // if memory was more important, a nested loop approach would be better.
+  // Time complexity = O(n), space complexity = O(n)
   const previousValues = new Map();
   previousValues.set(array[0], 0);
   for (let i = 1; i < array.length; i++) {
