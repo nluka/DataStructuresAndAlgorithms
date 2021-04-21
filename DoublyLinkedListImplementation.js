@@ -38,10 +38,10 @@ class DoublyLinkedList {
 
   getValues() {
     const values = [];
-    let currentNode = this.head;
-    while (currentNode !== null) {
-      values.push(currentNode.value);
-      currentNode = currentNode.next;
+    let nodeAtIndex = this.head;
+    while (nodeAtIndex !== null) {
+      values.push(nodeAtIndex.value);
+      nodeAtIndex = nodeAtIndex.next;
     }
     return values;
   }
@@ -57,9 +57,11 @@ class DoublyLinkedList {
       return this.append(value);
     }
 
-    const priorNode = this.getNodeAtIndex(index - 1);
-    const newNode = new Node(value, priorNode.next);
-    priorNode.next = newNode;
+    const trailingNode = this.getNodeAtIndex(index - 1);
+    const nodeAtIndex = this.getNodeAtIndex(index);
+    const newNode = new Node(value, trailingNode.next, trailingNode);
+    trailingNode.next = newNode;
+    nodeAtIndex.previous = newNode;
     this.length++;
     return this;
   }
@@ -76,31 +78,35 @@ class DoublyLinkedList {
     if (index >= this.length) {
       index = this.length - 1;
     }
-    const priorNode = this.getNodeAtIndex(index - 1);
-    const nodeToRemove = priorNode.next;
-    priorNode.next = nodeToRemove.next;
+    const trailingNode = this.getNodeAtIndex(index - 1);
+    const nodeAtIndex = trailingNode.next;
+    const leadingNode = nodeAtIndex.next;
+    trailingNode.next = leadingNode;
+    if (index < this.length - 1) {
+      leadingNode.previous = trailingNode;
+    }
     this.length--;
     return this;
   }
 
   getNodeAtIndex(index) {
-    let currentNode;
+    let nodeAtIndex;
     const middleIndex = (this.length - 1) / 2;
 
     if (index <= middleIndex) {
-      currentNode = this.head;
+      nodeAtIndex = this.head;
       for (let currentIndex = 0; currentIndex < index; currentIndex++) {
-        currentNode = currentNode.next;
+        nodeAtIndex = nodeAtIndex.next;
       }
-      return currentNode;
+      return nodeAtIndex;
     }
 
     const lastIndex = this.length - 1;
-    currentNode = this.tail;
+    nodeAtIndex = this.tail;
     for (let currentIndex = lastIndex; currentIndex > index; currentIndex--) {
-      currentNode = currentNode.next;
+      nodeAtIndex = nodeAtIndex.next;
     }
-    return currentNode;
+    return nodeAtIndex;
   }
 }
 

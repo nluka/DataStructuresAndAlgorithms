@@ -52,9 +52,21 @@ test('DoublyLinkedList.insert(index) should insert a node at the passed in index
   const doublyLinkedList = new DoublyLinkedList(values[0]);
   doublyLinkedList.append(values[2]);
   doublyLinkedList.insert(1, values[1]);
-  expect(doublyLinkedList.getValueAtIndex(0)).toBe(values[0]);
-  expect(doublyLinkedList.getValueAtIndex(1)).toBe(values[1]);
-  expect(doublyLinkedList.getValueAtIndex(2)).toBe(values[2]);
+  expect(doublyLinkedList.getNodeAtIndex(0)).toEqual({
+    value: values[0],
+    next: doublyLinkedList.getNodeAtIndex(1),
+    previous: null
+  });
+  expect(doublyLinkedList.getNodeAtIndex(1)).toEqual({
+    value: values[1],
+    next: doublyLinkedList.getNodeAtIndex(2),
+    previous: doublyLinkedList.getNodeAtIndex(0)
+  });
+  expect(doublyLinkedList.getNodeAtIndex(2)).toEqual({
+    value: values[2],
+    next: null,
+    previous: doublyLinkedList.getNodeAtIndex(1)
+  });
 });
 
 test('DoublyLinkedList.insert(index) should append a node at the passed in index when index is out of range (> length)', () => {
