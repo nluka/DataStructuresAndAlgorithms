@@ -6,6 +6,13 @@ class Node {
   }
 }
 
+/*
+  append: O(1)
+  prepend: O(1)
+  insert: O(n/2 + 1) because traversal is O(n/2), and the actual insertion is O(1)
+  remove: O(n/2 + 1) because traversal is O(n/2), and the actual insertion is O(1)
+*/
+
 class DoublyLinkedList {
   constructor(firstValue) {
     this.head = {

@@ -5,6 +5,13 @@ class Node {
   }
 }
 
+/*
+  append: O(1)
+  prepend: O(1)
+  insert: O(n + 1) because traversal is O(n), and the actual insertion is O(1)
+  remove: O(n + 1) because traversal is O(n), and the actual insertion is O(1)
+*/
+
 class SinglyLinkedList {
   constructor(firstValue) {
     this.head = {
@@ -55,9 +62,9 @@ class SinglyLinkedList {
       return this.append(value);
     }
 
-    const priorNode = this.getNodeAtIndex(index - 1);
-    const newNode = new Node(value, priorNode.next);
-    priorNode.next = newNode;
+    const trailingNode = this.getNodeAtIndex(index - 1);
+    const newNode = new Node(value, trailingNode.next);
+    trailingNode.next = newNode;
     this.length++;
     return this;
   }
@@ -74,9 +81,9 @@ class SinglyLinkedList {
     if (index >= this.length) {
       index = this.length - 1;
     }
-    const priorNode = this.getNodeAtIndex(index - 1);
-    const nodeToRemove = priorNode.next;
-    priorNode.next = nodeToRemove.next;
+    const trailingNode = this.getNodeAtIndex(index - 1);
+    const nodeToRemove = trailingNode.next;
+    trailingNode.next = nodeToRemove.next;
     this.length--;
     return this;
   }
