@@ -32,6 +32,10 @@ class DoublyLinkedList {
     return this;
   }
 
+  getValueAtIndex(index) {
+    return this.getNodeAtIndex(index).value;
+  }
+
   getValues() {
     const values = [];
     let currentNode = this.head;
@@ -100,10 +104,4 @@ class DoublyLinkedList {
   }
 }
 
-const doublyLinkedList = new DoublyLinkedList(5);
-doublyLinkedList.prepend(2);
-doublyLinkedList.prepend(1);
-doublyLinkedList.append(10);
-// doublyLinkedList.insert(4, 100);
-doublyLinkedList.remove(1);
-console.log(doublyLinkedList.getValues());
+module.exports.DoublyLinkedList = DoublyLinkedList;
