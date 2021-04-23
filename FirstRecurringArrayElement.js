@@ -12,7 +12,7 @@
 // return 5 because the pairs are before 2,2
 
 function firstRecurringArrayElement(array) {
-  if (array === undefined || array === null || typeof array !== 'object' || array.length < 1) {
+  if (!Array.isArray(array) || array.length < 2) {
     return undefined;
   }
 
