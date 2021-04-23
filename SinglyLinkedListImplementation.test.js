@@ -102,3 +102,11 @@ test('SinglyLinkedList.remove(index) should throw an error when passed in index 
     singlyLinkedList.remove(invalidIndex);
   }).toThrowError(`cannot remove element at index less than 0 (${invalidIndex} was passed for index)`);
 });
+
+test('SinglyLinkedList.reverse() should return a new and reversed linked list', () => {
+  const values = [5, 10, 15];
+  const valuesReversed = [15, 10, 5];
+  const singlyLinkedList = new SinglyLinkedList(values);
+  const singlyLinkedListReversed = new SinglyLinkedList(valuesReversed);
+  expect(singlyLinkedList.reverse()).toEqual(singlyLinkedListReversed);
+});
