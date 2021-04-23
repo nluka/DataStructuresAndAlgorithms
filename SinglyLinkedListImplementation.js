@@ -125,4 +125,3 @@ class SinglyLinkedList {
 }
 
 module.exports.SinglyLinkedList = SinglyLinkedList;
-console.log(new SinglyLinkedList([5, 10, 15]));
