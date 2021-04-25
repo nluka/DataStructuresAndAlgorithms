@@ -13,15 +13,21 @@ class Node {
   remove: O(n/2 + 1) because traversal is O(n/2), and the actual insertion is O(1)
 */
 
-class DoublyLinkedList {
-  constructor(firstValue) {
-    this.head = {
-      value: firstValue,
-      next: null,
-      previous: null
-    };
+module.exports.DoublyLinkedList = class DoublyLinkedList {
+  constructor(values) {
+    if (!Array.isArray(values)) {
+      throw new Error(`passed in parameter (values) must be an array, but instead is of type '${typeof values}'`);
+    }
+
+    this.head = new Node(values[0], null, null);
     this.tail = this.head;
     this.length = 1;
+
+    for (let i = 1; i < values.length; i++) {
+      this.append(values[i]);
+    }
+
+    return this;
   }
 
   append(value) {
@@ -115,6 +121,26 @@ class DoublyLinkedList {
     }
     return nodeAtIndex;
   }
-}
 
-module.exports.DoublyLinkedList = DoublyLinkedList;
+  reverse() {
+    if (this.length < 2) {
+      return this;
+    }
+
+    this.tail = this.head;
+    let first = this.head;
+    let second = this.head.next;
+    while (second !== null) {
+      const third = second.next;
+      second.previous = third;
+      second.next = first;
+      first = second;
+      second = third;
+    }
+    this.tail.previous = this.head.next;
+    this.tail.next = null;
+    this.head = first;
+
+    return this;
+  }
+};
