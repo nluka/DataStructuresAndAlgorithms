@@ -11,7 +11,7 @@
 // [2,5,5,2,3,5,1,2,4]
 // return 5 because the pairs are before 2,2
 
-function firstRecurringArrayElement(array) {
+module.exports.firstRecurringArrayElement = function firstRecurringArrayElement(array) {
   if (!Array.isArray(array) || array.length < 2) {
     return undefined;
   }
@@ -28,6 +28,4 @@ function firstRecurringArrayElement(array) {
     previousValues.set(array[i], i);
   }
   return undefined;
-}
-
-module.exports.firstRecurringArrayElement = firstRecurringArrayElement;
+};

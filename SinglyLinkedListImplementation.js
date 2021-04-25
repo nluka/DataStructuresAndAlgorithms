@@ -12,7 +12,7 @@ class Node {
   remove: O(n + 1) because traversal is O(n), and the actual insertion is O(1)
 */
 
-class SinglyLinkedList {
+module.exports.SinglyLinkedList = class SinglyLinkedList {
   constructor(values) {
     if (!Array.isArray(values)) {
       throw new Error(`passed in parameter (values) must be an array, but instead is of type '${typeof values}'`);
@@ -122,6 +122,4 @@ class SinglyLinkedList {
 
     return this;
   }
-}
-
-module.exports.SinglyLinkedList = SinglyLinkedList;
+};

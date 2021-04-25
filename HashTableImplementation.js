@@ -1,4 +1,10 @@
-class HashTable {
+/*
+  _hash: O(1)
+  set: usually O(1), but O(n) if collision occurs
+  get: usually O(1), but O(n) if collision occurs
+*/
+
+module.exports.HashTable = class HashTable {
   constructor(size) {
     this.data = new Array(size);
   }
@@ -27,6 +33,4 @@ class HashTable {
       }
     }
   }
-}
-
-module.exports.HashTable = HashTable;
+};

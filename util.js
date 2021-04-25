@@ -1,4 +1,4 @@
-function getRandomAlphabeticalString(maxLength) {
+module.exports.getRandomAlphabeticalString = function getRandomAlphabeticalString(maxLength) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const numberOfCharacters = Math.round(Math.random() * maxLength);
   let string = '';
@@ -7,6 +7,4 @@ function getRandomAlphabeticalString(maxLength) {
     string += characters.charAt(randomIndex);
   }
   return string;
-}
-
-module.exports.getRandomAlphabeticalString = getRandomAlphabeticalString;
+};
