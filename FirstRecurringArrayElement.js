@@ -17,7 +17,7 @@ module.exports.firstRecurringArrayElement = function firstRecurringArrayElement(
   }
 
   // This solution optimizes for time,
-  // if memory was more important, a nested loop approach would be better.
+  // if memory was more important, a nested loop approach would be better, but would result in O(n^2) time complexity.
   // Time complexity = O(n), space complexity = O(n)
   const previousValues = new Map();
   previousValues.set(array[0], 0);
