@@ -1,5 +1,5 @@
 const { test, expect } = require('@jest/globals');
-const { firstRecurringArrayElement } = require('./FirstRecurringArrayElement');
+const { firstRecurringArrayElement } = require('./firstRecurringArrayElement.js');
 
 test('0. firstRecurringArrayElement should return undefined when null is passed in', () => {
   expect(firstRecurringArrayElement(null)).toBe(undefined);

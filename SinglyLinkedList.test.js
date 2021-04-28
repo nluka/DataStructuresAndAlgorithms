@@ -1,6 +1,6 @@
 const { test, expect } = require('@jest/globals');
-const singlyLinkedListImplementation = require('./SinglyLinkedListImplementation.js');
-const SinglyLinkedList = singlyLinkedListImplementation.SinglyLinkedList;
+const singlyLinkedList = require('./SinglyLinkedList.js');
+const SinglyLinkedList = singlyLinkedList.SinglyLinkedList;
 
 test('0. SinglyLinkedList constructor should throw error when non-array parameter is passed in', () => {
   const values = 15;

@@ -1,7 +1,7 @@
 const { test, expect } = require('@jest/globals');
-const hashTableImplementation = require('./HashTableImplementation.js');
+const hashTable = require('./HashTable.js');
 const util = require('./util.js');
-const HashTable = hashTableImplementation.HashTable;
+const HashTable = hashTable.HashTable;
 const getRandomAlphabeticalString = util.getRandomAlphabeticalString;
 
 test('0. HashTable.data.length should be the same length as the size passed into constructor', () => {

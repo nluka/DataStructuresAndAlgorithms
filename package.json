@@ -1,12 +1,12 @@
 {
-  "name": "datastructuresandalgorithms",
+  "name": "data-structures-and-algorithms",
   "version": "1.0.0",
   "description": "",
-  "main": "DoublyLinkedListImplementation.js",
-  "dependencies": {
+  "main": "DoublyLinkedList.js",
+  "dependencies": {},
+  "devDependencies": {
     "jest": "^26.6.3"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "jest"
   },

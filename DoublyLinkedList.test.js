@@ -1,6 +1,6 @@
 const { test, expect } = require('@jest/globals');
-const doublyLinkedListImplementation = require('./DoublyLinkedListImplementation.js');
-const DoublyLinkedList = doublyLinkedListImplementation.DoublyLinkedList;
+const doublyLinkedList = require('./DoublyLinkedList.js');
+const DoublyLinkedList = doublyLinkedList.DoublyLinkedList;
 
 test('0. DoublyLinkedList constructor should throw error when non-array parameter is passed in', () => {
   const values = 15;
@@ -19,8 +19,16 @@ test('1. DoublyLinkedList head and tail should be the same node containing the p
 test('2. DoublyLinkedList.getNodeAtIndex(index) should return the node at the passed in index', () => {
   const values = [15, 20];
   const doublyLinkedList = new DoublyLinkedList(values);
-  expect(doublyLinkedList.getNodeAtIndex(0)).toEqual({ value: values[0], next: doublyLinkedList.getNodeAtIndex(1), previous: null });
-  expect(doublyLinkedList.getNodeAtIndex(1)).toEqual({ value: values[1], next: null, previous: doublyLinkedList.getNodeAtIndex(0) });
+  expect(doublyLinkedList.getNodeAtIndex(0)).toEqual({
+    value: values[0],
+    next: doublyLinkedList.getNodeAtIndex(1),
+    previous: null
+  });
+  expect(doublyLinkedList.getNodeAtIndex(1)).toEqual({
+    value: values[1],
+    next: null,
+    previous: doublyLinkedList.getNodeAtIndex(0)
+  });
 });
 
 test('4. DoublyLinkedList.getValueAtIndex(index) should return the value at the passed in index', () => {
@@ -34,7 +42,11 @@ test('5. DoublyLinkedList.append(value) should insert a node at the end of the l
   const appendValue = 25;
   const doublyLinkedList = new DoublyLinkedList(values);
   doublyLinkedList.append(appendValue);
-  expect(doublyLinkedList.getNodeAtIndex(2)).toEqual({ value: appendValue, next: null, previous: doublyLinkedList.getNodeAtIndex(1) });
+  expect(doublyLinkedList.getNodeAtIndex(2)).toEqual({
+    value: appendValue,
+    next: null,
+    previous: doublyLinkedList.getNodeAtIndex(1)
+  });
 });
 
 test('6. DoublyLinkedList.prepend(value) should insert a node at the beginning of the list', () => {
@@ -42,7 +54,11 @@ test('6. DoublyLinkedList.prepend(value) should insert a node at the beginning o
   const prependValue = 10;
   const doublyLinkedList = new DoublyLinkedList(values);
   doublyLinkedList.prepend(prependValue);
-  expect(doublyLinkedList.getNodeAtIndex(0)).toEqual({ value: prependValue, next: doublyLinkedList.getNodeAtIndex(1), previous: null });
+  expect(doublyLinkedList.getNodeAtIndex(0)).toEqual({
+    value: prependValue,
+    next: doublyLinkedList.getNodeAtIndex(1),
+    previous: null
+  });
 });
 
 test('7. DoublyLinkedList.getValues() should return an array of all values held by the list', () => {
