@@ -12,13 +12,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nluka/DataStructuresAndAlgorithms.git"
+    "url": "git+https://github.com/nluka/dataStructuresAndAlgorithms.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nluka/DataStructuresAndAlgorithms/issues"
+    "url": "https://github.com/nluka/dataStructuresAndAlgorithms/issues"
   },
-  "homepage": "https://github.com/nluka/DataStructuresAndAlgorithms#readme"
+  "homepage": "https://github.com/nluka/dataStructuresAndAlgorithms#readme"
 }
