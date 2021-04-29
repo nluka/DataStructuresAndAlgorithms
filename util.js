@@ -1,4 +1,4 @@
-module.exports.getRandomAlphabeticalString = function getRandomAlphabeticalString(maxLength) {
+module.exports.getRandomAlphaNumericString = function getRandomAlphaNumericString(maxLength) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const numberOfCharacters = Math.round(Math.random() * maxLength);
   let string = '';

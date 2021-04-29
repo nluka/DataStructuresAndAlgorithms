@@ -2,7 +2,7 @@ const { test, expect } = require('@jest/globals');
 const hashTable = require('./HashTable.js');
 const util = require('./util.js');
 const HashTable = hashTable.HashTable;
-const getRandomAlphabeticalString = util.getRandomAlphabeticalString;
+const getRandomAlphaNumericString = util.getRandomAlphaNumericString;
 
 test('0. HashTable.data.length should be the same length as the size passed into constructor', () => {
   for (let i = 0; i < 5; i++) {
@@ -25,7 +25,7 @@ test('2. HashTable._hash should return number from zero to (size-1)', () => {
   const hashTable = new HashTable(SIZE);
   const NUMBER_OF_RUNS = 1_000;
   for (let i = 0; i < NUMBER_OF_RUNS; i++) {
-    const hash = hashTable._hash(getRandomAlphabeticalString(100));
+    const hash = hashTable._hash(getRandomAlphaNumericString(100));
     expect(typeof hash === 'number');
     expect(hash).toBeGreaterThanOrEqual(0);
     expect(hash).toBeLessThanOrEqual(SIZE - 1);
