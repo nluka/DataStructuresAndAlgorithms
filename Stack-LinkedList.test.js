@@ -1,4 +1,4 @@
-const { test, expect, beforeEach, afterEach } = require('@jest/globals');
+const { test, expect, beforeEach } = require('@jest/globals');
 const stackll = require('./Stack-LinkedList.js');
 const StackLL = stackll.StackLL;
 
@@ -41,7 +41,7 @@ test('2. StackLL.push(value) should set top and bottom equal to the same new nod
   expect(stack.bottom).toEqual(expectedTopAndBottom);
 });
 
-test('3. StackLL.push(value) should set add an item to the top when stack has items', () => {
+test('3. StackLL.push(value) should add an item to the top when stack has items', () => {
   const values = [10, 15, 20];
 
   stack.push(values[0]);
@@ -107,10 +107,8 @@ test('9. StackLL.pop() should remove the top item when stack has 2 items', () =>
   stack.pop();
 
   const expectedTop = { value: values[0], next: null };
-  const expectedBottom = expectedTop;
 
   expect(stack.top).toEqual(expectedTop);
-  expect(stack.bottom).toEqual(expectedBottom);
 });
 
 test('10. StackLL.pop() should remove the top item when stack has more than 2 items', () => {
