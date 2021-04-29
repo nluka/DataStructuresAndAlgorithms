@@ -2,7 +2,7 @@
   peek: O(1)
   push: O(1)
   pop: O(1)
-  getNodeAtIndex: O(n) because of linked list traversal
+  getNodeAtIndex: O(1) because of array access
 */
 
 module.exports.StackArr = class StackArr {
