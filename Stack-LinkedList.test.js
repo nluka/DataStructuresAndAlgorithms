@@ -161,7 +161,7 @@ test('14. StackLL.peek() should return null when stack is empty', () => {
   expect(stack.peek()).toBeNull();
 });
 
-test('14. StackLL.peek() should return top value when stack has items', () => {
+test('15. StackLL.peek() should return top value when stack has items', () => {
   const values = [10, 15, 20];
 
   stack.push(values[0]);
@@ -172,4 +172,19 @@ test('14. StackLL.peek() should return top value when stack has items', () => {
 
   stack.push(values[2]);
   expect(stack.peek()).toBe(values[2]);
+});
+
+test('16. StackLL.isEmpty() should return true when stack has no items', () => {
+  expect(stack.isEmpty()).toBe(true);
+});
+
+test('17. StackLL.isEmpty() should return false when stack has items', () => {
+  stack.push(10);
+  expect(stack.isEmpty()).toBe(false);
+
+  stack.push(15);
+  expect(stack.isEmpty()).toBe(false);
+
+  stack.push(20);
+  expect(stack.isEmpty()).toBe(false);
 });
