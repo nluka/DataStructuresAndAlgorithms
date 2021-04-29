@@ -1,9 +1,9 @@
-class Node {
-  constructor(value, next) {
-    this.value = value;
-    this.next = next;
-  }
-}
+/*
+  peek: O(1)
+  push: O(1)
+  pop: O(1)
+  getNodeAtIndex: O(n) because of linked list traversal
+*/
 
 module.exports.StackArr = class StackArr {
   constructor() {
@@ -38,12 +38,14 @@ module.exports.StackArr = class StackArr {
     if (this.isEmpty()) {
       return this;
     }
+
     if (this.length === 1) {
       this.top = null;
       this.bottom = null;
     } else {
       this.top = this.values[this.length - 2];
     }
+
     this.values.pop();
     this.length--;
     return this;
