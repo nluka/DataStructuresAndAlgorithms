@@ -1,16 +1,26 @@
-const { test, expect } = require('@jest/globals');
+const { test, expect, beforeEach, afterEach } = require('@jest/globals');
 const stackll = require('./Stack-LinkedList.js');
 const StackLL = stackll.StackLL;
 
+const stack = new StackLL();
+
+beforeEach(() => {
+  clearStack();
+});
+
+function clearStack() {
+  stack.top = null;
+  stack.bottom = null;
+  stack.length = 0;
+}
+
 test('0. StackLL.constructor() should create an empty stack with length 0', () => {
-  const stack = new StackLL();
   expect(stack.top).toBeNull();
   expect(stack.bottom).toBeNull();
   expect(stack.length).toBe(0);
 });
 
 test('1. StackLL.push(value) should increment length when stack is empty or has items', () => {
-  const stack = new StackLL();
   const values = [10, 15, 20];
 
   stack.push(values[0]);
@@ -24,7 +34,6 @@ test('1. StackLL.push(value) should increment length when stack is empty or has 
 });
 
 test('2. StackLL.push(value) should set top and bottom equal to the same new node when stack is empty', () => {
-  const stack = new StackLL();
   const pushValue = 10;
   stack.push(pushValue);
   const expectedTopAndBottom = { value: pushValue, next: null };
@@ -33,7 +42,6 @@ test('2. StackLL.push(value) should set top and bottom equal to the same new nod
 });
 
 test('3. StackLL.push(value) should set add an item to the top when stack has items', () => {
-  const stack = new StackLL();
   const values = [10, 15, 20];
 
   stack.push(values[0]);
@@ -49,8 +57,6 @@ test('3. StackLL.push(value) should set add an item to the top when stack has it
 });
 
 test('4. StackLL.pop() should do nothing when stack length is 0', () => {
-  const stack = new StackLL();
-
   stack.pop();
 
   expect(stack.top).toBeNull();
@@ -59,14 +65,12 @@ test('4. StackLL.pop() should do nothing when stack length is 0', () => {
 });
 
 test('5. StackLL.pop() should decrement length when stack has 1 item', () => {
-  const stack = new StackLL();
   stack.push(10);
   stack.pop();
   expect(stack.length).toBe(0);
 });
 
 test('6. StackLL.pop() should decrement length when stack has 2 items', () => {
-  const stack = new StackLL();
   stack.push(10);
   stack.push(15);
   stack.pop();
@@ -74,8 +78,6 @@ test('6. StackLL.pop() should decrement length when stack has 2 items', () => {
 });
 
 test('7. StackLL.pop() should decrement length when stack has more than 2 items', () => {
-  const stack = new StackLL();
-
   stack.push(10);
   stack.push(15);
   stack.push(20);
@@ -89,8 +91,6 @@ test('7. StackLL.pop() should decrement length when stack has more than 2 items'
 });
 
 test('8. StackLL.pop() should set top and bottom to null when stack has 1 item', () => {
-  const stack = new StackLL();
-
   stack.push(10);
   stack.pop();
 
@@ -100,7 +100,6 @@ test('8. StackLL.pop() should set top and bottom to null when stack has 1 item',
 });
 
 test('9. StackLL.pop() should remove the top item when stack has 2 items', () => {
-  const stack = new StackLL();
   const values = [10, 15];
 
   stack.push(values[0]);
@@ -115,7 +114,6 @@ test('9. StackLL.pop() should remove the top item when stack has 2 items', () =>
 });
 
 test('10. StackLL.pop() should remove the top item when stack has more than 2 items', () => {
-  const stack = new StackLL();
   const values = [10, 15, 20];
 
   stack.push(values[0]);
@@ -128,4 +126,33 @@ test('10. StackLL.pop() should remove the top item when stack has more than 2 it
 
   expect(stack.top).toEqual(expectedTop);
   expect(stack.bottom).toEqual(expectedBottom);
+});
+
+test('11. StackLL.getNodeAtIndex(index) should throw an error when index is less than 0', () => {
+  const invalidIndex = -1;
+  expect(() => {
+    stack.getNodeAtIndex(invalidIndex);
+  }).toThrowError(new Error(`cannot get node at index less than 0 (passed in index was ${invalidIndex})`));
+});
+
+test('12. StackLL.getNodeAtIndex(index) should should throw an error when index >= length', () => {
+  stack.push(10);
+  const invalidIndex = stack.length;
+  expect(() => {
+    stack.getNodeAtIndex(invalidIndex);
+  }).toThrowError(new Error(`cannot get node at index greater than length-1 (passed in index was ${invalidIndex})`));
+});
+
+test('13. StackLL.getNodeAtIndex(index) should return the node at the passed in index when index is valid', () => {
+  const values = [10, 15, 20];
+
+  stack.push(values[0]);
+  stack.push(values[1]);
+  stack.push(values[2]);
+
+  const index = 1;
+  const returnedNode = stack.getNodeAtIndex(index);
+  const expectedNode = { value: values[index], next: stack.top };
+
+  expect(returnedNode).toEqual(expectedNode);
 });

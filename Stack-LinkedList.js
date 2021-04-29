@@ -46,6 +46,12 @@ module.exports.StackLL = class StackLL {
   }
 
   getNodeAtIndex(index) {
+    if (index < 0) {
+      throw new Error(`cannot get node at index less than 0 (passed in index was ${index})`);
+    }
+    if (index >= this.length) {
+      throw new Error(`cannot get node at index greater than length-1 (passed in index was ${index})`);
+    }
     let currentNode = this.bottom;
     for (let i = 0; i < index; i++) {
       currentNode = currentNode.next;
