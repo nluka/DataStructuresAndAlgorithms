@@ -5,6 +5,13 @@ class Node {
   }
 }
 
+/*
+  peek: O(1)
+  push: O(1)
+  pop: O(1)
+  getNodeAtIndex: O(n) because of linked list traversal
+*/
+
 module.exports.StackLL = class StackLL {
   constructor() {
     this.top = null;
