@@ -156,3 +156,20 @@ test('13. StackLL.getNodeAtIndex(index) should return the node at the passed in 
 
   expect(returnedNode).toEqual(expectedNode);
 });
+
+test('14. StackLL.peek() should return null when stack is empty', () => {
+  expect(stack.peek()).toBeNull();
+});
+
+test('14. StackLL.peek() should return top value when stack has items', () => {
+  const values = [10, 15, 20];
+
+  stack.push(values[0]);
+  expect(stack.peek()).toBe(values[0]);
+
+  stack.push(values[1]);
+  expect(stack.peek()).toBe(values[1]);
+
+  stack.push(values[2]);
+  expect(stack.peek()).toBe(values[2]);
+});

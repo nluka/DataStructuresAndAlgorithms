@@ -12,7 +12,16 @@ module.exports.StackLL = class StackLL {
     this.length = 0;
   }
 
-  peek() {}
+  peek() {
+    if (this.isEmpty()) {
+      return null;
+    }
+    return this.top.value;
+  }
+
+  isEmpty() {
+    return this.length === 0;
+  }
 
   push(value) {
     const newNode = new Node(value, null);
