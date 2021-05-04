@@ -4,9 +4,7 @@ const StackLL = stackll.StackLL;
 
 const stack = new StackLL();
 
-beforeEach(() => {
-  clearStack();
-});
+beforeEach(clearStack);
 
 function clearStack() {
   stack.top = null;
