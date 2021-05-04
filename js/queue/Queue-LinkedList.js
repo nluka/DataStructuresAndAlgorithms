@@ -5,7 +5,7 @@ class Node {
   }
 }
 
-module.exports.Queue = class Queue {
+module.exports.QueueLL = class QueueLL {
   constructor() {
     this.first = null;
     this.last = null;

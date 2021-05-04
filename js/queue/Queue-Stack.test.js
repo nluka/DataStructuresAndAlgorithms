@@ -1,8 +1,8 @@
 const { test, expect, afterEach } = require('@jest/globals');
-const queueJs = require('./Queue.js');
-const Queue = queueJs.Queue;
+const QueueStackjs = require('./Queue-Stack.js');
+const QueueStack = QueueStackjs.QueueStack;
 
-const queue = new Queue();
+const queue = new QueueStack();
 
 afterEach(clearQueue);
 
@@ -12,13 +12,13 @@ function clearQueue() {
   queue.length = 0;
 }
 
-test('0. Queue.constructor() should create an empty queue with first, last, and length properties', () => {
+test('0. QueueStack.constructor() should create an empty queue with first, last, and length properties', () => {
   expect(queue.first).toBeNull();
   expect(queue.last).toBeNull();
   expect(queue.length).toBe(0);
 });
 
-test('1. Queue.enqueue(value) should set `first` and `last` to the same node containing `value` when the queue is empty', () => {
+test('1. QueueStack.enqueue(value) should set `first` and `last` to the same node containing `value` when the queue is empty', () => {
   const value = 10;
 
   queue.enqueue(value);
@@ -30,7 +30,7 @@ test('1. Queue.enqueue(value) should set `first` and `last` to the same node con
   expect(queue.last).toEqual(expectedLastNode);
 });
 
-test('2. Queue.enqueue(value) should add a node containing `value` to the end of the queue when the queue is not empty', () => {
+test('2. QueueStack.enqueue(value) should add a node containing `value` to the end of the queue when the queue is not empty', () => {
   const values = [10, 15, 20];
 
   queue.enqueue(values[0]);
@@ -52,7 +52,7 @@ test('2. Queue.enqueue(value) should add a node containing `value` to the end of
   expect(queue.last).toEqual(expectedLastNode);
 });
 
-test('3. Queue.enqueue(value) should increment `length`', () => {
+test('3. QueueStack.enqueue(value) should increment `length`', () => {
   const values = [10, 15, 20];
 
   queue.enqueue(values[0]);
@@ -65,7 +65,7 @@ test('3. Queue.enqueue(value) should increment `length`', () => {
   expect(queue).toHaveLength(3);
 });
 
-test('4. Queue.dequeue() should clear the queue when there is 1 item in queue', () => {
+test('4. QueueStack.dequeue() should clear the queue when there is 1 item in queue', () => {
   queue.enqueue(10);
   queue.dequeue();
   expect(queue).toHaveLength(0);
@@ -73,7 +73,7 @@ test('4. Queue.dequeue() should clear the queue when there is 1 item in queue', 
   expect(queue.last).toBeNull();
 });
 
-test('5. Queue.dequeue() should set `first` equal to `last` when there are 2 items in queue', () => {
+test('5. QueueStack.dequeue() should set `first` equal to `last` when there are 2 items in queue', () => {
   const values = [10, 15];
 
   queue.enqueue(values[0]);
@@ -87,7 +87,7 @@ test('5. Queue.dequeue() should set `first` equal to `last` when there are 2 ite
   expect(queue.last).toEqual(expectedLastNode);
 });
 
-test('6. Queue.dequeue() should set `first` to the second node when there are more than 2 items in queue', () => {
+test('6. QueueStack.dequeue() should set `first` to the second node when there are more than 2 items in queue', () => {
   const values = [10, 15, 20];
 
   queue.enqueue(values[0]);
@@ -101,12 +101,12 @@ test('6. Queue.dequeue() should set `first` to the second node when there are mo
   expect(queue.first).toEqual(expectedFirstNode);
 });
 
-test('7. Queue.dequeue() should not change `length` when queue is empty', () => {
+test('7. QueueStack.dequeue() should not change `length` when queue is empty', () => {
   queue.dequeue();
   expect(queue).toHaveLength(0);
 });
 
-test('8. Queue.dequeue() should decrement `length` when there is at least 1 item in queue', () => {
+test('8. QueueStack.dequeue() should decrement `length` when there is at least 1 item in queue', () => {
   queue.enqueue(10); // +1
   queue.dequeue(); // -1
   expect(queue).toHaveLength(0);
@@ -123,7 +123,7 @@ test('8. Queue.dequeue() should decrement `length` when there is at least 1 item
   expect(queue).toHaveLength(3);
 });
 
-test('9. Queue.isEmpty() should return true when queue is empty', () => {
+test('9. QueueStack.isEmpty() should return true when queue is empty', () => {
   expect(queue.isEmpty()).toBe(true);
 
   queue.enqueue(10); // +1
@@ -139,7 +139,7 @@ test('9. Queue.isEmpty() should return true when queue is empty', () => {
   expect(queue.isEmpty()).toBe(true); // length = 0
 });
 
-test('10. Queue.isEmpty() should return false when queue is not empty', () => {
+test('10. QueueStack.isEmpty() should return false when queue is not empty', () => {
   queue.enqueue(10); // +1
   expect(queue.isEmpty()).toBe(false); // length = 1
 
@@ -156,11 +156,11 @@ test('10. Queue.isEmpty() should return false when queue is not empty', () => {
   expect(queue.isEmpty()).toBe(false); // length = 3
 });
 
-test('11. Queue.peek() should return null when queue is empty', () => {
+test('11. QueueStack.peek() should return null when queue is empty', () => {
   expect(queue.peek()).toBeNull();
 });
 
-test('12. Queue.peek() should return `first` when queue is not empty', () => {
+test('12. QueueStack.peek() should return `first` when queue is not empty', () => {
   const values = [10, 15, 20];
 
   queue.enqueue(values[0]);
