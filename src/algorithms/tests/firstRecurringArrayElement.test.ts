@@ -26,7 +26,7 @@ describe('firstRecurringArrayElement', () => {
 });
 
 function assertReturnValue(array: any[], expected: any) {
-  test(`${expected} when given ${JSON.stringify(array)}`, () => {
+  test(`${expected} when array=${JSON.stringify(array)}`, () => {
     expect(firstRecurringArrayElement(array)).toBe(expected);
   });
 }

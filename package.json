@@ -12,7 +12,7 @@
     "typescript": "^4.3.5"
   },
   "scripts": {
-    "test": "jest src/",
+    "test": "jest --verbose src/",
     "test-watch": "jest --watchAll src/",
     "lint": "eslint -c .eslintrc.json",
     "format": "prettier --write \"src/**/*.ts\"",
