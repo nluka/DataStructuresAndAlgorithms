@@ -1,4 +1,3 @@
-import { afterEach, describe, expect } from '@jest/globals';
 import Stack from '../Stack';
 
 let s: Stack<any>;
@@ -66,7 +65,7 @@ describe('StackArr', () => {
       expect(s._bottom).toBe(val);
     });
 
-    test('onto non-empty stack', () => {
+    test('onto populated stack', () => {
       s = new Stack([1]);
       s.push(2);
       expect(s._values).toEqual([1, 2]);
@@ -81,7 +80,7 @@ describe('StackArr', () => {
       expect(s.peekTop()).toBeNull();
     });
 
-    test('of non-empty stack', () => {
+    test('of populated stack', () => {
       s = new Stack([1, 2, 3]);
       expect(s.peekTop()).toBe(3);
     });
@@ -93,7 +92,7 @@ describe('StackArr', () => {
       expect(s.peekBottom()).toBeNull();
     });
 
-    test('of non-empty stack', () => {
+    test('of populated stack', () => {
       s = new Stack([1, 2, 3]);
       expect(s.peekBottom()).toBe(1);
     });
@@ -102,14 +101,14 @@ describe('StackArr', () => {
   describe('pop', () => {
     test('empty stack', () => {
       expect(s.pop()).toBeNull();
-      verifyStackIsEmpty();
+      assertStackIsEmpty();
     });
 
     describe('stack containing', () => {
       test('1 item', () => {
         s = new Stack([1]);
         expect(s.pop()).toBe(1);
-        verifyStackIsEmpty();
+        assertStackIsEmpty();
       });
 
       test('2 items', () => {
@@ -141,31 +140,31 @@ describe('StackArr', () => {
   describe('clear', () => {
     test('empty stack', () => {
       expect(s.clear()).toEqual([]);
-      verifyStackIsEmpty();
+      assertStackIsEmpty();
     });
 
-    test('non-empty stack', () => {
+    test('populated stack', () => {
       s = new Stack([1, 2, 3]);
       expect(s.clear()).toEqual([3, 2, 1]);
-      verifyStackIsEmpty();
+      assertStackIsEmpty();
     });
   });
 
   describe('clearFast', () => {
     test('empty stack', () => {
       s.clearFast();
-      verifyStackIsEmpty();
+      assertStackIsEmpty();
     });
 
-    test('non-empty stack', () => {
+    test('populated stack', () => {
       s = new Stack([1, 2, 3]);
       s.clear();
-      verifyStackIsEmpty();
+      assertStackIsEmpty();
     });
   });
 });
 
-function verifyStackIsEmpty() {
+function assertStackIsEmpty() {
   expect(s._top).toBeNull();
   expect(s._bottom).toBeNull();
   expect(s._values).toEqual([]);
