@@ -1,6 +1,6 @@
 {
   "name": "data-structs-n-algos",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "JavaScript and TypeScript implementations for common data structures and algorithms.",
   "main": "dist/index.js",
   "devDependencies": {
@@ -12,11 +12,11 @@
     "typescript": "^4.3.5"
   },
   "scripts": {
-    "test": "jest --verbose src/",
     "test-watch": "jest --watchAll",
     "lint": "eslint -c .eslintrc.json",
     "format": "prettier --write \"src/**/*.ts\"",
-    "build": "npm run test && tsc"
+    "prebuild-test": "jest --verbose src/",
+    "build": "npm run prebuild-test && tsc"
   },
   "repository": {
     "type": "git",

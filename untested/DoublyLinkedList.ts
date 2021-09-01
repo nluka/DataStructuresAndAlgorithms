@@ -1,28 +1,28 @@
-import {
-  listAppend,
-  listGet,
-  listInit as listInit,
-  listPrepend,
-  listTraverseFromHead,
-} from './utilities/linked-list';
+import { listInit } from '../src/data-structures/utilities/linked-list';
 
-export class NodeUnilateral<T> {
+export class NodeBilateral<T> {
   public value: T;
-  public next: NodeUnilateral<T> | null;
+  public next: NodeBilateral<T> | null;
+  public prev: NodeBilateral<T> | null;
 
-  constructor(value: T, next: NodeUnilateral<T> | null) {
+  constructor(
+    value: T,
+    next: NodeBilateral<T> | null,
+    prev: NodeBilateral<T> | null
+  ) {
     this.value = value;
     this.next = next;
+    this.prev = prev;
   }
 }
 
 export default class DoublyLinkedList<T> {
-  public _head: NodeUnilateral<T> | null;
-  public _tail: NodeUnilateral<T> | null;
+  public _head: NodeBilateral<T> | null;
+  public _tail: NodeBilateral<T> | null;
   public _length: number;
 
   /**
-   * Creates a new instance of a singly linked list.
+   * Creates a new instance of a doubly linked list.
    * @param values The inital values to populate the list with. If omitted, list begins empty.
    */
   constructor(values?: T[]) {
@@ -41,8 +41,15 @@ export default class DoublyLinkedList<T> {
    * @returns The list instance - `this`.
    */
   public append(value: T) {
-    const newNode = new NodeUnilateral(value, null);
-    listAppend(this, newNode);
+    const newNode = new NodeBilateral(value, null, this._tail);
+    if (this._length === 0) {
+      this._head = newNode;
+    }
+    if (this._tail !== null) {
+      this._tail.next = newNode;
+    }
+    this._tail = newNode;
+    this._length++;
     return this;
   }
 
@@ -52,26 +59,66 @@ export default class DoublyLinkedList<T> {
    * @returns The list instance - `this`.
    */
   public prepend(value: T) {
-    const newNode = new NodeUnilateral(value, this._head);
-    listPrepend(this, newNode);
+    const newNode = new NodeBilateral(value, this._head, null);
+    this._head = newNode;
+    if (this._length === 0) {
+      this._tail = newNode;
+    }
+    this._length++;
     return this;
   }
 
   /**
-   * Gets the value at an index. Time complexity = O(n) where n is the number of items in the list.
+   * Gets the value at an index. Time complexity = O(n/2) where n is the number of items in the list.
    * @param index The index of the value to find.
    * @returns The value of the node at the given index.
    */
-  public get(index: number): T | null {
-    return listGet(this, index);
+  public get(index: number) {
+    if (index < 0 || (this._length > 0 && index > this._length - 1)) {
+      throw new RangeError(`index ${index} is not in bounds`);
+    }
+
+    const node = this._getNode(index);
+    return node !== null ? node.value : null;
   }
 
-  public _getNode(index: number): NodeUnilateral<T> | null {
+  public _getNode(index: number) {
     if (this._length === 0) {
       return null;
     }
 
-    return listTraverseFromHead(this, index) as NodeUnilateral<T>;
+    const middleIndex = (this._length - 1) / 2;
+    let currentNode: NodeBilateral<T> | null;
+
+    if (index <= middleIndex) {
+      // traverse from head
+      currentNode = this._head;
+      for (let i = 0; i < index; i++) {
+        if (currentNode !== null) {
+          currentNode = currentNode.next;
+        } else {
+          this._throwTraversalError();
+        }
+      }
+    } else {
+      // traverse from tail
+      currentNode = this._tail;
+      for (let i = this._length - 1; i > index; i--) {
+        if (currentNode !== null) {
+          currentNode = currentNode.next;
+        } else {
+          this._throwTraversalError();
+        }
+      }
+    }
+
+    return currentNode;
+  }
+
+  private _throwTraversalError() {
+    throw new Error(
+      "couldn't traverse list because a node along path to destination index was null"
+    );
   }
 
   /**
@@ -88,7 +135,7 @@ export default class DoublyLinkedList<T> {
   }
 
   /**
-   * Inserts a value at the specified index. Time complexity = O(n) where n is the number of items in the list.
+   * Inserts a value at the specified index. Time complexity = O(n/2) where n is the number of items in the list.
    * @param value The value to insert.
    * @param index The index at which to insert the value.
    * @returns The list instance - `this`.
@@ -106,15 +153,15 @@ export default class DoublyLinkedList<T> {
       );
     }
 
-    const trailingNode = this._getNode(index - 1) as NodeUnilateral<T>;
-    const newNode = new NodeUnilateral(value, trailingNode.next);
+    const trailingNode = this._getNode(index - 1) as NodeBilateral<T>;
+    const newNode = new NodeBilateral(value, trailingNode.next, trailingNode);
     trailingNode.next = newNode;
     this._length++;
     return this;
   }
 
   /**
-   * Removes a value at the specified index. Time complexity = O(n) where n is the number of items in the list.
+   * Removes a value at the specified index. Time complexity = O(n/2) where n is the number of items in the list.
    * @param index The index of the value to remove.
    * @returns The removed value.
    */
@@ -124,7 +171,7 @@ export default class DoublyLinkedList<T> {
     }
 
     if (index === 0) {
-      const nodeToRemove = this._head as NodeUnilateral<T>;
+      const nodeToRemove = this._head as NodeBilateral<T>;
       const trailingNode = nodeToRemove.next;
       if (trailingNode === null) {
         this._head = null;
@@ -136,7 +183,7 @@ export default class DoublyLinkedList<T> {
       return nodeToRemove.value;
     }
 
-    const leadingNode = this._getNode(index - 1) as NodeUnilateral<T>;
+    const leadingNode = this._getNode(index - 1) as NodeBilateral<T>;
     const nodeToRemove = leadingNode.next;
     leadingNode.next = nodeToRemove !== null ? nodeToRemove.next : null;
     if (this._length === 2) {
@@ -159,14 +206,14 @@ export default class DoublyLinkedList<T> {
 
     let first = this._head;
     this._tail = this._head;
-    let second = (this._head as NodeUnilateral<T>).next;
+    let second = (this._head as NodeBilateral<T>).next;
     while (second !== null) {
       const third = second.next;
       second.next = first;
       first = second;
       second = third;
     }
-    (this._tail as NodeUnilateral<T>).next = null;
+    (this._tail as NodeBilateral<T>).next = null;
     this._head = first;
     return this;
   }

@@ -1,4 +1,4 @@
-import SinglyLinkedList, { Node } from '../SinglyLinkedList';
+import SinglyLinkedList, { NodeUnilateral } from '../SinglyLinkedList';
 
 let l: SinglyLinkedList<any>;
 
@@ -22,7 +22,7 @@ describe('SinglyLinkedList', () => {
     test('single value', () => {
       const val = 1;
       l = new SinglyLinkedList([val]);
-      const node = new Node(val, null);
+      const node = new NodeUnilateral(val, null);
       expect(l._head).toEqual(node);
       expect(l._tail).toEqual(node);
       expect(l._length).toEqual(1);
@@ -30,8 +30,11 @@ describe('SinglyLinkedList', () => {
 
     test('multiple values', () => {
       l = new SinglyLinkedList([1, 2, 3]);
-      const expectedTail = new Node(3, null);
-      const expectedHead = new Node(1, new Node(2, expectedTail));
+      const expectedTail = new NodeUnilateral(3, null);
+      const expectedHead = new NodeUnilateral(
+        1,
+        new NodeUnilateral(2, expectedTail)
+      );
       expect(l._head).toEqual(expectedHead);
       expect(l._tail).toEqual(expectedTail);
       expect(l._length).toEqual(3);
@@ -42,7 +45,7 @@ describe('SinglyLinkedList', () => {
     test('onto empty list', () => {
       const val = 1;
       l.append(val);
-      const node = new Node(val, null);
+      const node = new NodeUnilateral(val, null);
       expect(l._head).toEqual(node);
       expect(l._tail).toEqual(node);
       expect(l._length).toBe(1);
@@ -52,7 +55,7 @@ describe('SinglyLinkedList', () => {
       l = new SinglyLinkedList([1, 2, 3]);
       const val = 4;
       l.append(val);
-      const node = new Node(val, null);
+      const node = new NodeUnilateral(val, null);
       expect(l._tail).toEqual(node);
       expect(l._length).toBe(4);
     });
@@ -62,7 +65,7 @@ describe('SinglyLinkedList', () => {
     test('onto empty list', () => {
       const val = 1;
       l.prepend(val);
-      const node = new Node(val, null);
+      const node = new NodeUnilateral(val, null);
       expect(l._head).toEqual(node);
       expect(l._tail).toEqual(node);
       expect(l._length).toBe(1);
@@ -72,10 +75,10 @@ describe('SinglyLinkedList', () => {
       l = new SinglyLinkedList([1, 2, 3]);
       const val = 0.5;
       l.prepend(val);
-      const expectedTail = new Node(3, null);
-      const expectedHead = new Node(
+      const expectedTail = new NodeUnilateral(3, null);
+      const expectedHead = new NodeUnilateral(
         val,
-        new Node(1, new Node(2, expectedTail))
+        new NodeUnilateral(1, new NodeUnilateral(2, expectedTail))
       );
       expect(l._head).toEqual(expectedHead);
       expect(l._tail).toEqual(expectedTail);
@@ -91,17 +94,19 @@ describe('SinglyLinkedList', () => {
 
       test('length 1', () => {
         l = new SinglyLinkedList([1]);
-        expect(l._getNode(0)).toEqual(new Node(1, null));
+        expect(l._getNode(0)).toEqual(new NodeUnilateral(1, null));
       });
 
       test('length 2', () => {
         l = new SinglyLinkedList([1, 2]);
-        expect(l._getNode(0)).toEqual(new Node(1, new Node(2, null)));
+        expect(l._getNode(0)).toEqual(
+          new NodeUnilateral(1, new NodeUnilateral(2, null))
+        );
       });
 
       test('length 3', () => {
         l = new SinglyLinkedList([1, 2, 3]);
-        expect(l._getNode(2)).toEqual(new Node(3, null));
+        expect(l._getNode(2)).toEqual(new NodeUnilateral(3, null));
       });
     });
   });
@@ -174,7 +179,7 @@ describe('SinglyLinkedList', () => {
         test('into empty list', () => {
           const val = 1;
           l.insert(val, 0);
-          const node = new Node(val, null);
+          const node = new NodeUnilateral(val, null);
           expect(l._head).toEqual(node);
           expect(l._tail).toEqual(node);
           expect(l._length).toBe(1);
@@ -185,8 +190,8 @@ describe('SinglyLinkedList', () => {
             l = new SinglyLinkedList([1]);
             const val = 0.5;
             l.insert(val, 0);
-            const expectedTail = new Node(1, null);
-            const expectedHead = new Node(val, expectedTail);
+            const expectedTail = new NodeUnilateral(1, null);
+            const expectedHead = new NodeUnilateral(val, expectedTail);
             expect(l._head).toEqual(expectedHead);
             expect(l._tail).toEqual(expectedTail);
             expect(l._length).toBe(2);
@@ -196,8 +201,11 @@ describe('SinglyLinkedList', () => {
             l = new SinglyLinkedList([1, 2]);
             const val = 0.5;
             l.insert(val, 0);
-            const expectedTail = new Node(2, null);
-            const expectedHead = new Node(val, new Node(1, expectedTail));
+            const expectedTail = new NodeUnilateral(2, null);
+            const expectedHead = new NodeUnilateral(
+              val,
+              new NodeUnilateral(1, expectedTail)
+            );
             expect(l._head).toEqual(expectedHead);
             expect(l._tail).toEqual(expectedTail);
             expect(l._length).toBe(3);
@@ -207,10 +215,10 @@ describe('SinglyLinkedList', () => {
             l = new SinglyLinkedList([1, 2, 3]);
             const val = 0.5;
             l.insert(val, 0);
-            const expectedTail = new Node(3, null);
-            const expectedHead = new Node(
+            const expectedTail = new NodeUnilateral(3, null);
+            const expectedHead = new NodeUnilateral(
               val,
-              new Node(1, new Node(2, expectedTail))
+              new NodeUnilateral(1, new NodeUnilateral(2, expectedTail))
             );
             expect(l._head).toEqual(expectedHead);
             expect(l._tail).toEqual(expectedTail);
@@ -223,8 +231,11 @@ describe('SinglyLinkedList', () => {
             l = new SinglyLinkedList([1, 2]);
             const val = 1.5;
             l.insert(val, 1);
-            const expectedTail = new Node(2, null);
-            const expectedHead = new Node(1, new Node(val, expectedTail));
+            const expectedTail = new NodeUnilateral(2, null);
+            const expectedHead = new NodeUnilateral(
+              1,
+              new NodeUnilateral(val, expectedTail)
+            );
             expect(l._head).toEqual(expectedHead);
             expect(l._tail).toEqual(expectedTail);
             expect(l._length).toBe(3);
@@ -234,10 +245,10 @@ describe('SinglyLinkedList', () => {
             l = new SinglyLinkedList([1, 2, 3]);
             const val = 1.5;
             l.insert(val, 1);
-            const expectedTail = new Node(3, null);
-            const expectedHead = new Node(
+            const expectedTail = new NodeUnilateral(3, null);
+            const expectedHead = new NodeUnilateral(
               1,
-              new Node(val, new Node(2, expectedTail))
+              new NodeUnilateral(val, new NodeUnilateral(2, expectedTail))
             );
             expect(l._head).toEqual(expectedHead);
             expect(l._tail).toEqual(expectedTail);
@@ -250,8 +261,11 @@ describe('SinglyLinkedList', () => {
             l = new SinglyLinkedList([1, 2]);
             const val = 3;
             l.insert(val, 2);
-            const expectedTail = new Node(val, null);
-            const expectedHead = new Node(1, new Node(2, expectedTail));
+            const expectedTail = new NodeUnilateral(val, null);
+            const expectedHead = new NodeUnilateral(
+              1,
+              new NodeUnilateral(2, expectedTail)
+            );
             expect(l._head).toEqual(expectedHead);
             expect(l._tail).toEqual(expectedTail);
             expect(l._length).toBe(3);
@@ -261,10 +275,10 @@ describe('SinglyLinkedList', () => {
             l = new SinglyLinkedList([1, 2, 3]);
             const val = 4;
             l.insert(val, 3);
-            const expectedTail = new Node(val, null);
-            const expectedHead = new Node(
+            const expectedTail = new NodeUnilateral(val, null);
+            const expectedHead = new NodeUnilateral(
               1,
-              new Node(2, new Node(3, expectedTail))
+              new NodeUnilateral(2, new NodeUnilateral(3, expectedTail))
             );
             expect(l._head).toEqual(expectedHead);
             expect(l._tail).toEqual(expectedTail);
@@ -295,7 +309,7 @@ describe('SinglyLinkedList', () => {
         test('index 0 of populated list, length 2', () => {
           l = new SinglyLinkedList([1, 2]);
           expect(l.remove(0)).toBe(1);
-          const node = new Node(2, null);
+          const node = new NodeUnilateral(2, null);
           expect(l._head).toEqual(node);
           expect(l._tail).toEqual(node);
           expect(l._length).toBe(1);
@@ -304,7 +318,7 @@ describe('SinglyLinkedList', () => {
         test('index 1 of populated list, length 2', () => {
           l = new SinglyLinkedList([1, 2]);
           expect(l.remove(1)).toBe(2);
-          const node = new Node(1, null);
+          const node = new NodeUnilateral(1, null);
           expect(l._head).toEqual(node);
           expect(l._tail).toEqual(node);
           expect(l._length).toBe(1);
@@ -313,8 +327,8 @@ describe('SinglyLinkedList', () => {
         test('index 1 of populated list, length 3', () => {
           l = new SinglyLinkedList([1, 2, 3]);
           expect(l.remove(1)).toBe(2);
-          const expectedTail = new Node(3, null);
-          const expectedHead = new Node(1, expectedTail);
+          const expectedTail = new NodeUnilateral(3, null);
+          const expectedHead = new NodeUnilateral(1, expectedTail);
           expect(l._head).toEqual(expectedHead);
           expect(l._tail).toEqual(expectedTail);
           expect(l._length).toBe(2);
@@ -323,8 +337,8 @@ describe('SinglyLinkedList', () => {
         test('index 2 of populated list, length 3', () => {
           l = new SinglyLinkedList([1, 2, 3]);
           expect(l.remove(2)).toBe(3);
-          const expectedTail = new Node(2, null);
-          const expectedHead = new Node(1, expectedTail);
+          const expectedTail = new NodeUnilateral(2, null);
+          const expectedHead = new NodeUnilateral(1, expectedTail);
           expect(l._head).toEqual(expectedHead);
           expect(l._tail).toEqual(expectedTail);
           expect(l._length).toBe(2);
@@ -342,7 +356,7 @@ describe('SinglyLinkedList', () => {
     test('length 1', () => {
       l = new SinglyLinkedList([1]);
       l.reverse();
-      const node = new Node(1, null);
+      const node = new NodeUnilateral(1, null);
       expect(l._head).toEqual(node);
       expect(l._tail).toEqual(node);
       expect(l._length).toBe(1);
@@ -351,8 +365,8 @@ describe('SinglyLinkedList', () => {
     test('length 2', () => {
       l = new SinglyLinkedList([1, 2]);
       l.reverse();
-      const expectedTail = new Node(1, null);
-      const expectedHead = new Node(2, expectedTail);
+      const expectedTail = new NodeUnilateral(1, null);
+      const expectedHead = new NodeUnilateral(2, expectedTail);
       expect(l._head).toEqual(expectedHead);
       expect(l._tail).toEqual(expectedTail);
       expect(l._length).toBe(2);
@@ -361,8 +375,11 @@ describe('SinglyLinkedList', () => {
     test('length 3', () => {
       l = new SinglyLinkedList([1, 2, 3]);
       l.reverse();
-      const expectedTail = new Node(1, null);
-      const expectedHead = new Node(3, new Node(2, expectedTail));
+      const expectedTail = new NodeUnilateral(1, null);
+      const expectedHead = new NodeUnilateral(
+        3,
+        new NodeUnilateral(2, expectedTail)
+      );
       expect(l._head).toEqual(expectedHead);
       expect(l._tail).toEqual(expectedTail);
       expect(l._length).toBe(3);
