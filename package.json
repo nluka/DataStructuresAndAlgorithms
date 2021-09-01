@@ -1,6 +1,6 @@
 {
   "name": "data-structs-n-algos",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "JavaScript and TypeScript implementations for common data structures and algorithms.",
   "main": "dist/index.js",
   "devDependencies": {
@@ -13,7 +13,7 @@
   },
   "scripts": {
     "test": "jest --verbose src/",
-    "test-watch": "jest --watchAll src/",
+    "test-watch": "jest --watchAll",
     "lint": "eslint -c .eslintrc.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "build": "npm run test && tsc"
@@ -34,7 +34,7 @@
   "author": "Nicholas Lukasevich",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nluka/dataStructuresAndAlgorithms/issues"
+    "url": "https://github.com/nluka/data-structs-n-algos/issues"
   },
-  "homepage": "https://github.com/nluka/dataStructuresAndAlgorithms#readme"
+  "homepage": "https://github.com/nluka/data-structs-n-algos#readme"
 }

@@ -112,7 +112,7 @@ describe('SinglyLinkedList', () => {
         test('index is out of bounds', () => {
           l = new SinglyLinkedList([1, 2, 3]);
           expect(() => l.get(-1)).toThrowError();
-          expect(() => l.get(5)).toThrowError();
+          expect(() => l.get(4)).toThrowError();
         });
       });
 
@@ -154,106 +154,182 @@ describe('SinglyLinkedList', () => {
   });
 
   describe('insert', () => {
-    test('into empty list', () => {
-      const val = 1;
-      l.insert(val, 0);
-      const node = new Node(val, null);
-      expect(l._head).toEqual(node);
-      expect(l._tail).toEqual(node);
-      expect(l._length).toBe(1);
-    });
+    describe('should', () => {
+      describe('throw error when', () => {
+        test('index < 0', () => {
+          expect(() => {
+            l.insert(100, -1);
+          }).toThrow();
+        });
 
-    test('into beginning of populated list', () => {
-      l = new SinglyLinkedList([1, 2, 3]);
-      const val = 0.5;
-      l.insert(val, 0);
-      const expectedTail = new Node(3, null);
-      const expectedHead = new Node(
-        val,
-        new Node(1, new Node(2, expectedTail))
-      );
-      expect(l._head).toEqual(expectedHead);
-      expect(l._tail).toEqual(expectedTail);
-      expect(l._length).toBe(4);
-    });
+        test('index > length', () => {
+          expect(() => {
+            l = new SinglyLinkedList([1, 2, 3]);
+            l.insert(100, 4);
+          }).toThrow();
+        });
+      });
 
-    test('into middle of populated list', () => {
-      l = new SinglyLinkedList([1, 2, 3]);
-      const val = 1.5;
-      l.insert(val, 1);
-      const expectedTail = new Node(3, null);
-      const expectedHead = new Node(
-        1,
-        new Node(val, new Node(2, expectedTail))
-      );
-      expect(l._head).toEqual(expectedHead);
-      expect(l._tail).toEqual(expectedTail);
-      expect(l._length).toBe(4);
-    });
+      describe('succeed', () => {
+        test('into empty list', () => {
+          const val = 1;
+          l.insert(val, 0);
+          const node = new Node(val, null);
+          expect(l._head).toEqual(node);
+          expect(l._tail).toEqual(node);
+          expect(l._length).toBe(1);
+        });
 
-    test('onto end of populated list', () => {
-      l = new SinglyLinkedList([1, 2, 3]);
-      const val = 2.5;
-      l.insert(val, 2);
-      const expectedTail = new Node(3, null);
-      const expectedHead = new Node(
-        1,
-        new Node(2, new Node(val, expectedTail))
-      );
-      expect(l._head).toEqual(expectedHead);
-      expect(l._tail).toEqual(expectedTail);
-      expect(l._length).toBe(4);
+        describe('into beginning of populated list', () => {
+          test('length 1', () => {
+            l = new SinglyLinkedList([1]);
+            const val = 0.5;
+            l.insert(val, 0);
+            const expectedTail = new Node(1, null);
+            const expectedHead = new Node(val, expectedTail);
+            expect(l._head).toEqual(expectedHead);
+            expect(l._tail).toEqual(expectedTail);
+            expect(l._length).toBe(2);
+          });
+
+          test('length 2', () => {
+            l = new SinglyLinkedList([1, 2]);
+            const val = 0.5;
+            l.insert(val, 0);
+            const expectedTail = new Node(2, null);
+            const expectedHead = new Node(val, new Node(1, expectedTail));
+            expect(l._head).toEqual(expectedHead);
+            expect(l._tail).toEqual(expectedTail);
+            expect(l._length).toBe(3);
+          });
+
+          test('length 3', () => {
+            l = new SinglyLinkedList([1, 2, 3]);
+            const val = 0.5;
+            l.insert(val, 0);
+            const expectedTail = new Node(3, null);
+            const expectedHead = new Node(
+              val,
+              new Node(1, new Node(2, expectedTail))
+            );
+            expect(l._head).toEqual(expectedHead);
+            expect(l._tail).toEqual(expectedTail);
+            expect(l._length).toBe(4);
+          });
+        });
+
+        describe('into middle of populated list', () => {
+          test('length 2', () => {
+            l = new SinglyLinkedList([1, 2]);
+            const val = 1.5;
+            l.insert(val, 1);
+            const expectedTail = new Node(2, null);
+            const expectedHead = new Node(1, new Node(val, expectedTail));
+            expect(l._head).toEqual(expectedHead);
+            expect(l._tail).toEqual(expectedTail);
+            expect(l._length).toBe(3);
+          });
+
+          test('length 3', () => {
+            l = new SinglyLinkedList([1, 2, 3]);
+            const val = 1.5;
+            l.insert(val, 1);
+            const expectedTail = new Node(3, null);
+            const expectedHead = new Node(
+              1,
+              new Node(val, new Node(2, expectedTail))
+            );
+            expect(l._head).toEqual(expectedHead);
+            expect(l._tail).toEqual(expectedTail);
+            expect(l._length).toBe(4);
+          });
+        });
+
+        describe('onto end of populated list', () => {
+          test('length 2', () => {
+            l = new SinglyLinkedList([1, 2]);
+            const val = 3;
+            l.insert(val, 2);
+            const expectedTail = new Node(val, null);
+            const expectedHead = new Node(1, new Node(2, expectedTail));
+            expect(l._head).toEqual(expectedHead);
+            expect(l._tail).toEqual(expectedTail);
+            expect(l._length).toBe(3);
+          });
+
+          test('length 3', () => {
+            l = new SinglyLinkedList([1, 2, 3]);
+            const val = 4;
+            l.insert(val, 3);
+            const expectedTail = new Node(val, null);
+            const expectedHead = new Node(
+              1,
+              new Node(2, new Node(3, expectedTail))
+            );
+            expect(l._head).toEqual(expectedHead);
+            expect(l._tail).toEqual(expectedTail);
+            expect(l._length).toBe(4);
+          });
+        });
+      });
     });
   });
 
   describe('remove', () => {
-    test('from index 0 of empty list', () => {
-      l.remove(0);
-      assertListIsEmpty();
-    });
+    describe('should', () => {
+      describe('throw error given', () => {
+        test('index 0 of empty list', () => {
+          expect(() => {
+            l.remove(0);
+          }).toThrow();
+        });
+      });
 
-    test('from index 0 of populated list, length 1', () => {
-      l = new SinglyLinkedList([1]);
-      expect(l.remove(0)).toBe(1);
-      assertListIsEmpty();
-    });
+      describe('succeed given', () => {
+        test('index 0 of populated list, length 1', () => {
+          l = new SinglyLinkedList([1]);
+          expect(l.remove(0)).toBe(1);
+          assertListIsEmpty();
+        });
 
-    test('from index 0 of populated list, length 2', () => {
-      l = new SinglyLinkedList([1, 2]);
-      expect(l.remove(0)).toBe(1);
-      const node = new Node(2, null);
-      expect(l._head).toEqual(node);
-      expect(l._tail).toEqual(node);
-      expect(l._length).toBe(1);
-    });
+        test('index 0 of populated list, length 2', () => {
+          l = new SinglyLinkedList([1, 2]);
+          expect(l.remove(0)).toBe(1);
+          const node = new Node(2, null);
+          expect(l._head).toEqual(node);
+          expect(l._tail).toEqual(node);
+          expect(l._length).toBe(1);
+        });
 
-    test('from index 1 of populated list, length 2', () => {
-      l = new SinglyLinkedList([1, 2]);
-      expect(l.remove(1)).toBe(2);
-      const node = new Node(1, null);
-      expect(l._head).toEqual(node);
-      expect(l._tail).toEqual(node);
-      expect(l._length).toBe(1);
-    });
+        test('index 1 of populated list, length 2', () => {
+          l = new SinglyLinkedList([1, 2]);
+          expect(l.remove(1)).toBe(2);
+          const node = new Node(1, null);
+          expect(l._head).toEqual(node);
+          expect(l._tail).toEqual(node);
+          expect(l._length).toBe(1);
+        });
 
-    test('from index 1 of populated list, length 3', () => {
-      l = new SinglyLinkedList([1, 2, 3]);
-      expect(l.remove(1)).toBe(2);
-      const expectedTail = new Node(3, null);
-      const expectedHead = new Node(1, expectedTail);
-      expect(l._head).toEqual(expectedHead);
-      expect(l._tail).toEqual(expectedTail);
-      expect(l._length).toBe(2);
-    });
+        test('index 1 of populated list, length 3', () => {
+          l = new SinglyLinkedList([1, 2, 3]);
+          expect(l.remove(1)).toBe(2);
+          const expectedTail = new Node(3, null);
+          const expectedHead = new Node(1, expectedTail);
+          expect(l._head).toEqual(expectedHead);
+          expect(l._tail).toEqual(expectedTail);
+          expect(l._length).toBe(2);
+        });
 
-    test('from index 2 of populated list, length 3', () => {
-      l = new SinglyLinkedList([1, 2, 3]);
-      expect(l.remove(2)).toBe(3);
-      const expectedTail = new Node(2, null);
-      const expectedHead = new Node(1, expectedTail);
-      expect(l._head).toEqual(expectedHead);
-      expect(l._tail).toEqual(expectedTail);
-      expect(l._length).toBe(2);
+        test('index 2 of populated list, length 3', () => {
+          l = new SinglyLinkedList([1, 2, 3]);
+          expect(l.remove(2)).toBe(3);
+          const expectedTail = new Node(2, null);
+          const expectedHead = new Node(1, expectedTail);
+          expect(l._head).toEqual(expectedHead);
+          expect(l._tail).toEqual(expectedTail);
+          expect(l._length).toBe(2);
+        });
+      });
     });
   });
 

@@ -63,12 +63,15 @@ export default class SinglyLinkedList<T> {
   }
 
   /**
-   * Gets the value at an index.
+   * Gets the value at an index. Time complexity = O(n) where n is the number of items in the list.
    * @param index The index of the value to find.
    * @returns The value of the node at the given index.
    */
   public get(index: number) {
-    this._throwRangeErrorIfIndexIsOutOfBounds(index);
+    if (index < 0 || (this._length > 0 && index > this._length - 1)) {
+      throw new RangeError(`index ${index} is not in bounds`);
+    }
+
     const node = this._getNode(index);
     return node !== null ? node.value : null;
   }
@@ -92,7 +95,7 @@ export default class SinglyLinkedList<T> {
   }
 
   /**
-   * @returns An array of all the held values ordered from head to tail.
+   * @returns An array of all the held values ordered from head to tail. Time complexity = O(n) where n is the number of items in the list.
    */
   public getAll() {
     const values = [];
@@ -105,15 +108,22 @@ export default class SinglyLinkedList<T> {
   }
 
   /**
-   * Inserts a value at the specified index.
+   * Inserts a value at the specified index. Time complexity = O(n) where n is the number of items in the list.
    * @param value The value to insert.
    * @param index The index at which to insert the value.
    * @returns The list instance - `this`.
    */
   public insert(value: T, index: number) {
-    this._throwRangeErrorIfIndexIsOutOfBounds(index);
     if (index === 0) {
       return this.prepend(value);
+    }
+    if (index === this._length) {
+      return this.append(value);
+    }
+    if (index < 0 || index > this._length) {
+      throw new RangeError(
+        `cannot insert at index ${index}, index must be between 0 and ${this._length}`
+      );
     }
 
     const trailingNode = this._getNode(index - 1) as Node<T>;
@@ -124,15 +134,13 @@ export default class SinglyLinkedList<T> {
   }
 
   /**
-   * Removes a value at the specified index.
+   * Removes a value at the specified index. Time complexity = O(n) where n is the number of items in the list.
    * @param index The index of the value to remove.
    * @returns The removed value.
    */
   public remove(index: number) {
-    this._throwRangeErrorIfIndexIsOutOfBounds(index);
-
     if (this._length === 0) {
-      return null;
+      throw new Error(`cannot remove from an empty list`);
     }
 
     if (index === 0) {
@@ -161,7 +169,7 @@ export default class SinglyLinkedList<T> {
   }
 
   /**
-   * Reverses the values in the list - the head becomes the tail and vice versa.
+   * Reverses the values in the list - the head becomes the tail and vice versa. Time complexity = O(n) where n is the number of items in the list.
    * @returns The list instance - `this`.
    */
   public reverse() {
@@ -181,11 +189,5 @@ export default class SinglyLinkedList<T> {
     (this._tail as Node<T>).next = null;
     this._head = first;
     return this;
-  }
-
-  private _throwRangeErrorIfIndexIsOutOfBounds(index: number) {
-    if (index < 0 || (this._length > 0 && index > this._length - 1)) {
-      throw new RangeError(`index ${index} is not in bounds`);
-    }
   }
 }
