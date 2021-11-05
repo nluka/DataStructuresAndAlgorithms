@@ -26,55 +26,63 @@ Lightweight NPM package with JavaScript and TypeScript implementations for commo
 ##### Stack Documentation
 
 ```ts
-/**
- * Creates a new instance of a stack (utilizes an array).
- * @param values The initial values to populate the stack with. If omitted, stack begins empty.
- */
-constructor(values?: T[]);
+export default class Stack<T> {
+  _values: T[];
+  _top: T | null;
+  _bottom: T | null;
 
-/**
- * @returns true if the stack is empty, false if it isn't. Time complexity = O(1).
- */
-isEmpty(): boolean;
+  /**
+   * Creates a new instance of a stack (utilizes an array).
+   * @param values The initial values to populate the stack with. If omitted, stack begins empty.
+   */
+  constructor(values?: T[]);
 
-/**
- * Pushes a value onto the top of the stack. Time complexity = O(1).
- * @param value The value to append.
- * @returns The stack instance - `this`.
- */
-push(value: T): this;
+  /**
+   * @returns true if the stack is empty, false if it isn't. Time complexity = O(1).
+   */
+  isEmpty(): boolean;
 
-/**
- * @returns The element at the top of the stack, or null if the stack is empty. Time complexity = O(1).
- */
-peekTop(): T | null;
+  /**
+   * Pushes a value onto the top of the stack. Time complexity = O(1).
+   * @param value The value to append.
+   * @returns The stack instance - `this`.
+   */
+  push(value: T): this;
 
-/**
- * @returns The element at the bottom of the stack, or null if the stack is empty. Time complexity = O(1).
- */
-peekBottom(): T | null;
+  /**
+   * @returns The element at the top of the stack, or null if the stack is empty. Time complexity = O(1).
+   */
+  peekTop(): T | null;
 
-/**
- * Pops off the top element of the stack (if it isn't empty). Time complexity = O(1).
- * @returns The popped element, or null if the stack is empty.
- */
-pop(): T | null | undefined;
+  /**
+   * @returns The element at the bottom of the stack, or null if the stack is empty. Time complexity = O(1).
+   */
+  peekBottom(): T | null;
 
-/**
- * Clears the stack. Time complexity = O(n) where n is the number of items in the stack. If you don't need a reference to the cleared items, use `clearFast` instead.
- * @returns The cleared values, in the order they were popped.
- */
-clear(): T[];
+  /**
+   * Pops off the top element of the stack (if it isn't empty). Time complexity = O(1).
+   * @returns The popped element, or null if the stack is empty.
+   */
+  pop(): T | null | undefined;
 
-/**
- * Clears the stack. Time complexity = O(1). If you need a reference to the cleared items, use `clear` instead.
- */
-clearFast(): void;
+  /**
+   * Clears the stack. Time complexity = O(n) where n is the number of items in the stack. If you don't need a reference to the cleared items, use `clearFast` instead.
+   * @returns The cleared values, in the order they were popped.
+   */
+  clear(): T[];
+
+  /**
+   * Clears the stack. Time complexity = O(1). If you need a reference to the cleared items, use `clear` instead.
+   */
+  clearFast(): void;
+}
 ```
 
 ##### Stack Example
 
 ```ts
+import Stack from 'data-structs-n-algos';
+
 const stack = new Stack<Number>([1, 2, 3]);
 console.log(stack.isEmpty()); // false
 
