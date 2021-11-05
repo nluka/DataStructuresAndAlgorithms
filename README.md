@@ -88,8 +88,9 @@ console.log(stack.isEmpty()); // false
 
 stack.push(4);
 
-const item = stack.pop(); // 4
-const item = stack.pop(); // 3
+let item;
+item = stack.pop(); // item === 4
+item = stack.pop(); // item === 3
 
 const top = stack.peekTop(); // 2
 const bottom = stack.peekBottom(); // 1
