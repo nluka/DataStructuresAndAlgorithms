@@ -216,19 +216,14 @@ import SinglyLinkedList from 'data-structs-n-algos';
 const list = new SinglyLinkedList<Number>([1, 2, 3]); // 1 is head, 3 is tail
 console.log(list.isEmpty()); // false
 
-stack.push(4);
+list.prepend(0);
+console.log(list.head()); // 0
 
 let item;
-item = stack.pop(); // item === 4
-item = stack.pop(); // item === 3
+item = list.remove(0); // item === 0
+item = stack.remove(2); // item === 3
 
-const top = stack.peekTop(); // 2
-const bottom = stack.peekBottom(); // 1
-
-const remainder = stack.clear(); // use clearFast to avoid returned array
-console.log(remainder); // [1, 2]
-
-console.log(stack.isEmpty()); // true
+console.log(stack.length()); // 1
 ```
 
 ### Algorithms
