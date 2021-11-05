@@ -9,19 +9,14 @@ export default class Stack<T> {
    */
   constructor(values?: T[]) {
     this._values = values !== undefined ? [...values] : [];
+
     this._top =
       values !== undefined && values.length > 0
         ? (values[values.length - 1] as T)
         : null;
+
     this._bottom =
       values !== undefined && values.length > 0 ? (values[0] as T) : null;
-  }
-
-  /**
-   * @returns true if the stack is empty, false if it isn't. Time complexity = O(1).
-   */
-  public isEmpty() {
-    return this._values.length === 0;
   }
 
   /**
@@ -36,20 +31,6 @@ export default class Stack<T> {
     this._values.push(value);
     this._top = value;
     return this;
-  }
-
-  /**
-   * @returns The element at the top of the stack, or null if the stack is empty. Time complexity = O(1).
-   */
-  public peekTop() {
-    return this.isEmpty() ? null : this._top;
-  }
-
-  /**
-   * @returns The element at the bottom of the stack, or null if the stack is empty. Time complexity = O(1).
-   */
-  public peekBottom() {
-    return this.isEmpty() ? null : this._bottom;
   }
 
   /**
@@ -69,6 +50,20 @@ export default class Stack<T> {
     }
 
     return this._values.pop();
+  }
+
+  /**
+   * @returns The element at the top of the stack, or null if the stack is empty. Time complexity = O(1).
+   */
+  public peekTop() {
+    return this.isEmpty() ? null : this._top;
+  }
+
+  /**
+   * @returns The element at the bottom of the stack, or null if the stack is empty. Time complexity = O(1).
+   */
+  public peekBottom() {
+    return this.isEmpty() ? null : this._bottom;
   }
 
   /**
@@ -95,5 +90,19 @@ export default class Stack<T> {
     this._top = null;
     this._bottom = null;
     this._values = [];
+  }
+
+  /**
+   * @returns `true` if the stack is empty, `false` otherwise. Time complexity = O(1).
+   */
+  public isEmpty() {
+    return this._values.length === 0;
+  }
+
+  /**
+   * @returns The number of items in the stack. Time complexity = O(1).
+   */
+  public length() {
+    return this._values.length;
   }
 }

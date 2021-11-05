@@ -16,7 +16,7 @@ export class NodeUnilateral<T> {
   }
 }
 
-export default class DoublyLinkedList<T> {
+export default class SinglyLinkedList<T> {
   public _head: NodeUnilateral<T> | null;
   public _tail: NodeUnilateral<T> | null;
   public _length: number;
@@ -169,5 +169,43 @@ export default class DoublyLinkedList<T> {
     (this._tail as NodeUnilateral<T>).next = null;
     this._head = first;
     return this;
+  }
+
+  /**
+   * Time complexity = O(1).
+   * @returns `true` if list is empty, `false` otherwise.
+   */
+  public isEmpty() {
+    return this.length() === 0;
+  }
+
+  /**
+   * Time complexity = O(1).
+   * @returns The current length.
+   */
+  public length() {
+    return this._length;
+  }
+
+  /**
+   * Time complexity = O(1).
+   * @returns The current head value, or null if list is empty.
+   */
+  public head() {
+    if (this._head?.value === undefined) {
+      return null;
+    }
+    return this._head.value;
+  }
+
+  /**
+   * Time complexity = O(1).
+   * @returns The current tail value, or null if list is empty.
+   */
+  public tail() {
+    if (this._tail?.value === undefined) {
+      return null;
+    }
+    return this._tail.value;
   }
 }
