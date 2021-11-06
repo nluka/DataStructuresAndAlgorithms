@@ -67,29 +67,19 @@ export default class Stack<T> {
   }
 
   /**
-   * Clears the stack. Time complexity = O(n) where n is the number of items in the stack. If you don't need a reference to the cleared items, use `clearFast` instead.
-   * @returns The cleared values, in the order they were popped.
+   * @returns An array containing all currently held values, where the first element is the bottom and the last element is the top.
    */
-  public clear() {
-    const poppedVals: T[] = [];
-
-    this._top = null;
-    this._bottom = null;
-
-    for (let i = this._values.length - 1; i >= 0; i--) {
-      poppedVals.push(this._values.pop() as T);
-    }
-
-    return poppedVals;
+  public getValues(): T[] {
+    return [...this._values];
   }
 
   /**
-   * Clears the stack. Time complexity = O(1). If you need a reference to the cleared items, use `clear` instead.
+   * Clears the stack. Time complexity = O(1).
    */
-  public clearFast() {
+  public clear(): void {
+    this._values = [];
     this._top = null;
     this._bottom = null;
-    this._values = [];
   }
 
   /**
@@ -102,7 +92,7 @@ export default class Stack<T> {
   /**
    * @returns The number of items in the stack. Time complexity = O(1).
    */
-  public length() {
+  public height() {
     return this._values.length;
   }
 }

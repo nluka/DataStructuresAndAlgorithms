@@ -1,5 +1,5 @@
-import firstRecurringArrayElement from './algorithms/firstRecurringArrayElement';
-import SinglyLinkedList from './data-structures/SinglyLinkedList';
-import Stack from './data-structures/Stack';
+import arrayFirstRepeatingElement from "./algorithms/arrayFirstRepeatingElement";
+import SinglyLinkedList from "./data-structures/singly-linked-list/SinglyLinkedList";
+import Stack from "./data-structures/stack/Stack";
 
-export { firstRecurringArrayElement, Stack, SinglyLinkedList };
+export { arrayFirstRepeatingElement, Stack, SinglyLinkedList };

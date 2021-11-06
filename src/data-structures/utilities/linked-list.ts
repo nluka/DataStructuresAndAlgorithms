@@ -1,4 +1,6 @@
-import SinglyLinkedList, { NodeUnilateral } from '../SinglyLinkedList';
+import SinglyLinkedList, {
+  NodeUnilateral,
+} from "../singly-linked-list/SinglyLinkedList";
 
 type List<T> = SinglyLinkedList<T>;
 

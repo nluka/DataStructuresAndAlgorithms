@@ -10,11 +10,13 @@ Lightweight NPM package with JavaScript and TypeScript implementations for commo
     - [Stack](#stack)
       - [Stack Documentation](#stack-documentation)
       - [Stack Example](#stack-example)
-    - [Singly Linked List](#singly-linked-list)
-      - [Singly Linked List Documentation](#singly-linked-list-documentation)
-      - [Singly Linked List Example](#singly-linked-list-example)
+    - [SinglyLinkedList](#singlylinkedlist)
+      - [SinglyLinkedList Documentation](#singlylinkedlist-documentation)
+      - [SinglyLinkedList Example](#singlylinkedlist-example)
   - [Algorithms](#algorithms)
-    - [firstRecurringArrayElement](#firstrecurringarrayelement)
+    - [arrayFirstRepeatingElement](#arrayFirstRepeatingElement)
+      - [arrayFirstRepeatingElement Documentation](#arrayFirstRepeatingElement-documentation)
+      - [arrayFirstRepeatingElement Example](#arrayFirstRepeatingElement-example)
 
 ## Installation
 
@@ -64,15 +66,14 @@ export default class Stack<T> {
   peekBottom(): T | null;
 
   /**
-   * Clears the stack. Time complexity = O(n) where n is the number of items in the stack. If you don't need a reference to the cleared items, use `clearFast` instead.
-   * @returns The cleared values, in the order they were popped.
+   * @returns An array containing all currently held values, where the first element is the bottom and the last element is the top.
    */
-  clear(): T[];
+  getValues(): T[];
 
   /**
-   * Clears the stack. Time complexity = O(1). If you need a reference to the cleared items, use `clear` instead.
+   * Clears the stack. Time complexity = O(1).
    */
-  clearFast(): void;
+  clear(): void;
 
   /**
    * @returns `true` if the stack is empty, `false` otherwise. Time complexity = O(1).
@@ -82,7 +83,7 @@ export default class Stack<T> {
   /**
    * @returns The number of items in the stack. Time complexity = O(1).
    */
-  length(): number;
+  height(): number;
 }
 ```
 
@@ -90,29 +91,36 @@ export default class Stack<T> {
 
 ```ts
 // first, npm install data-structs-n-algos
-import Stack from 'data-structs-n-algos';
+import { Stack } from 'data-structs-n-algos';
 
-const stack = new Stack<Number>([1, 2, 3]); // 1 is bottom, 3 is top
-console.log(stack.isEmpty()); // false
+const emptyStack = new Stack<string>(); // starts off empty
 
-stack.push(4);
+//                               b  t
+const stack = new Stack<Number>([1, 2]);
 
-let item;
-item = stack.pop(); // item === 4
-item = stack.pop(); // item === 3
+//                         b        t
+stack.push(3).push(4); // [1, 2, 3, 4]
 
-const top = stack.peekTop(); // 2
-const bottom = stack.peekBottom(); // 1
+stack.pop(); // returns 4
+stack.pop(); // returns 3
+stack.pop(); // returns 2
 
-const remainder = stack.clear(); // use clearFast to avoid returned array
-console.log(remainder); // [1, 2]
+//                 b  t
+stack.push(2); // [1, 2]
 
-console.log(stack.isEmpty()); // true
+stack.peekTop(); // returns 2
+stack.peekBottom(); // returns 1
+
+stack.getValues(); // returns [1, 2]
+
+stack.clear();
+stack.length(); // returns 0
+stack.isEmpty(); // returns true
 ```
 
-#### Singly Linked List
+#### SinglyLinkedList
 
-##### Singly Linked List Documentation
+##### SinglyLinkedList Documentation
 
 ```ts
 export declare class NodeUnilateral<T> {
@@ -133,32 +141,18 @@ export default class SinglyLinkedList<T> {
   constructor(values?: T[]);
 
   /**
-   * Appends a value to the list. Time complexity = O(1).
+   * Inserts a value at the end of the list. Time complexity = O(1).
    * @param value The value to append.
    * @returns The list instance - `this`.
    */
   append(value: T): this;
 
   /**
-   * Prepends a value to the list. Time complexity = O(1).
+   * Inserts a value at the beginning of the list. Time complexity = O(1).
    * @param value The value to prepend.
    * @returns The list instance - `this`.
    */
   prepend(value: T): this;
-
-  /**
-   * Gets the value at an index. Time complexity = O(n) where n is the number of items in the list.
-   * @param index The index of the value to find.
-   * @returns The value of the node at the given index.
-   */
-  get(index: number): T | null;
-
-  _getNode(index: number): NodeUnilateral<T> | null;
-
-  /**
-   * @returns An array of all the held values ordered from head to tail. Time complexity = O(n) where n is the number of items in the list.
-   */
-  getAll(): T[];
 
   /**
    * Inserts a value at the specified index. Time complexity = O(n) where n is the number of items in the list.
@@ -173,13 +167,45 @@ export default class SinglyLinkedList<T> {
    * @param index The index of the value to remove.
    * @returns The removed value.
    */
-  remove(index: number): T | null;
+  remove(index: number): T;
+
+  /**
+   * Gets the value at `index`. Time complexity = O(n) where n is the number of items in the list.
+   * @param index The index of the value to find.
+   * @returns The value of the node at the given index.
+   */
+  get(index: number): T | null;
+
+  _getNode(index: number): NodeUnilateral<T> | null;
+
+  /**
+   * @returns An array containing the held currently held values, ordered from head to tail. Time complexity = O(n) where n is the number of items in the list.
+   */
+  getValues(): T[];
+
+  /**
+   * Executes a callback function for each item in the list. Time complexity = O(n) where n is the number of items in the list.
+   * @param callback The function to execute for each item in the list.
+   */
+  forEachItem(callback: (item: T, index: number) => void): void;
+
+  /**
+   * Executes a callback function that replaces each item in the list with the result. Time complexity = O(n) where n is the number of items in the list.
+   * @param callback The function to execute for each item in the list.
+   */
+  forEachItemMutate(callback: (item: T, index: number) => T): void;
 
   /**
    * Reverses the values in the list - the head becomes the tail and vice versa. Time complexity = O(n) where n is the number of items in the list.
    * @returns The list instance - `this`.
    */
   reverse(): this;
+
+  /**
+   * Removes all items from the list. Time complexity = O(1).
+   * @returns The list instance - `this`.
+   */
+  clear(): this;
 
   /**
    * Time complexity = O(1).
@@ -189,46 +215,63 @@ export default class SinglyLinkedList<T> {
 
   /**
    * Time complexity = O(1).
-   * @returns The current length.
+   * @returns The current number of items stored.
    */
   length(): number;
 
   /**
    * Time complexity = O(1).
-   * @returns The current head value, or null if list is empty.
+   * @returns The current head value, or `null` if list is empty.
    */
   head(): T | null;
 
   /**
    * Time complexity = O(1).
-   * @returns The current tail value, or null if list is empty.
+   * @returns The current tail value, or `null` if list is empty.
    */
   tail(): T | null;
 }
+
+}
 ```
 
-##### Singly Linked List Example
+##### SinglyLinkedList Example
 
 ```ts
 // first, npm install data-structs-n-algos
-import SinglyLinkedList from 'data-structs-n-algos';
+import { SinglyLinkedList } from 'data-structs-n-algos';
 
-const list = new SinglyLinkedList<Number>([1, 2, 3]); // 1 is head, 3 is tail
-console.log(list.isEmpty()); // false
+const emptyList = new SinglyLinkedList<string>(); // starts off empty
 
-list.prepend(0);
-console.log(list.head()); // 0
+//                                         h     t
+const list = new SinglyLinkedList<Number>([1, 2, 3]);
+list.isEmpty(); // returns false
 
-let item;
-item = list.remove(0); // item === 0
-item = stack.remove(2); // item === 3
+//                             h         t
+list.prepend(0.5); // list = [0.5, 1, 2, 3]
+list.head()); // returns 0.5
 
-console.log(stack.length()); // 1
+//                                      h     t
+list.remove(0); // returns 0.5, list = [1, 2, 3]
+
+//                                                                           h, t
+list.remove(list.length() - 1); // returns 3 (removes last element), list = [1, 2]
+
+//                         h  t
+list.reverse(); // list = [2, 1]
+
+list.getValues() // return [2, 1]
+
+list.clear();
+list.length(); // returns 0
+list.isEmpty(); // returns true
 ```
 
 ### Algorithms
 
-#### firstRecurringArrayElement
+#### arrayFirstRepeatingElement
+
+##### arrayFirstRepeatingElement Documentation
 
 ```ts
 /**
@@ -236,5 +279,15 @@ console.log(stack.length()); // 1
  * @param array The array to search.
  * @returns The first repeating element in `array` if one exists, null otherwise.
  */
-export default function firstRecurringArrayElement<T>(array: T[]): T | null;
+export default function arrayFirstRepeatingElement<T>(array: T[]): T | null;
+```
+
+##### arrayFirstRepeatingElement Example
+
+```ts
+// first, npm install data-structs-n-algos
+import { arrayFirstRepeatingElement } from 'data-structs-n-algos';
+
+arrayFirstRepeatingElement([1, 2, 3]); // returns null
+arrayFirstRepeatingElement([1, 2, 3, 1]); // returns 1
 ```
