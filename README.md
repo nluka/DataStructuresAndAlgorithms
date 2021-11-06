@@ -249,7 +249,7 @@ list.isEmpty(); // returns false
 
 //                             h         t
 list.prepend(0.5); // list = [0.5, 1, 2, 3]
-list.head()); // returns 0.5
+list.head(); // returns 0.5
 
 //                                      h     t
 list.remove(0); // returns 0.5, list = [1, 2, 3]
@@ -260,7 +260,7 @@ list.remove(list.length() - 1); // returns 3 (removes last element), list = [1, 
 //                         h  t
 list.reverse(); // list = [2, 1]
 
-list.getValues() // return [2, 1]
+list.getValues(); // return [2, 1]
 
 list.clear();
 list.length(); // returns 0
