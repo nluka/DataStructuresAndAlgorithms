@@ -1,6 +1,6 @@
 import SinglyLinkedList, {
   NodeUnilateral,
-} from "../singly-linked-list/SinglyLinkedList";
+} from '../singly-linked-list/SinglyLinkedList';
 
 type List<T> = SinglyLinkedList<T>;
 
@@ -18,7 +18,7 @@ export function listAppend<T>(list: List<T>, node: NodeUnilateral<T>) {
     list._tail.next = node;
   }
   list._tail = node;
-  list._length++;
+  ++list._length;
 }
 
 export function listPrepend<T>(list: List<T>, node: NodeUnilateral<T>) {
@@ -26,7 +26,7 @@ export function listPrepend<T>(list: List<T>, node: NodeUnilateral<T>) {
   if (list._length === 0) {
     list._tail = node;
   }
-  list._length++;
+  ++list._length;
 }
 
 export function listGet<T>(list: List<T>, index: number) {
@@ -40,7 +40,7 @@ export function listGet<T>(list: List<T>, index: number) {
 
 export function listTraverseFromHead<T>(list: List<T>, index: number) {
   let currentNode = list._head;
-  for (let i = 0; i < index; i++) {
+  for (let i = 0; i < index; ++i) {
     if (currentNode !== null) {
       currentNode = currentNode.next;
     } else {

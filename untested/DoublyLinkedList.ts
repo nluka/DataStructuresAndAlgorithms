@@ -49,7 +49,7 @@ export default class DoublyLinkedList<T> {
       this._tail.next = newNode;
     }
     this._tail = newNode;
-    this._length++;
+    ++this._length;
     return this;
   }
 
@@ -64,7 +64,7 @@ export default class DoublyLinkedList<T> {
     if (this._length === 0) {
       this._tail = newNode;
     }
-    this._length++;
+    ++this._length;
     return this;
   }
 
@@ -93,7 +93,7 @@ export default class DoublyLinkedList<T> {
     if (index <= middleIndex) {
       // traverse from head
       currentNode = this._head;
-      for (let i = 0; i < index; i++) {
+      for (let i = 0; i < index; ++i) {
         if (currentNode !== null) {
           currentNode = currentNode.next;
         } else {
@@ -103,7 +103,7 @@ export default class DoublyLinkedList<T> {
     } else {
       // traverse from tail
       currentNode = this._tail;
-      for (let i = this._length - 1; i > index; i--) {
+      for (let i = this._length - 1; i > index; --i) {
         if (currentNode !== null) {
           currentNode = currentNode.next;
         } else {
@@ -156,7 +156,7 @@ export default class DoublyLinkedList<T> {
     const trailingNode = this._getNode(index - 1) as NodeBilateral<T>;
     const newNode = new NodeBilateral(value, trailingNode.next, trailingNode);
     trailingNode.next = newNode;
-    this._length++;
+    ++this._length;
     return this;
   }
 
@@ -179,7 +179,7 @@ export default class DoublyLinkedList<T> {
       } else {
         this._head = trailingNode;
       }
-      this._length--;
+      --this._length;
       return nodeToRemove.value;
     }
 
@@ -191,7 +191,7 @@ export default class DoublyLinkedList<T> {
     } else if (index === this._length - 1) {
       this._tail = leadingNode;
     }
-    this._length--;
+    --this._length;
     return nodeToRemove === null ? null : nodeToRemove.value;
   }
 
