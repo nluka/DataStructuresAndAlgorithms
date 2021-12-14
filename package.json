@@ -1,6 +1,6 @@
 {
   "name": "data-structs-n-algos",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "JavaScript and TypeScript implementations for common data structures and algorithms.",
   "main": "dist/index.js",
   "devDependencies": {
@@ -27,8 +27,9 @@
     "javascript",
     "typescript",
     "data structures",
-    "stack",
     "linked list",
+    "queue",
+    "stack",
     "algorithms",
     "lightweight"
   ],

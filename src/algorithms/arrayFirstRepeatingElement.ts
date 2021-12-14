@@ -1,7 +1,7 @@
 /**
- * Searches an array for the first repeating element and returns it. Linear time and space complexity - O(n).
+ * Searches an array for the first repeating element and returns it. Time and space complexity = O(n).
  * @param array The array to search.
- * @returns The first repeating element in `array` if one exists, `null` otherwise.
+ * @returns The first repeating element, null if there are no repeating elements.
  */
 export default function arrayFirstRepeatingElement<T>(array: T[]): T | null {
   if (!Array.isArray(array)) {
