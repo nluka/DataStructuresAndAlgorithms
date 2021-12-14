@@ -1,6 +1,6 @@
 # data-structs-n-algos
 
-Lightweight NPM package with JavaScript and TypeScript implementations for common data structures and algorithms.
+Comprehensive NPM package with JavaScript and TypeScript implementations for common data structures and algorithms.
 
 ## Table of Contents
 
@@ -21,7 +21,7 @@ Lightweight NPM package with JavaScript and TypeScript implementations for commo
 
 ### Data Structures
 
-#### Singly Linked List
+#### SinglyLinkedList
 
 ```ts
 export declare class NodeUnilateral<T> {
